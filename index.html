@@ -65,8 +65,13 @@ if(tg != undefined){
   let safe    = tg.WebApp.initData;
   
   tg.WebApp.headerColor = 'black';
-  tg.WebApp.expand(); 
- // tg.MainButton.hide();
+  if (!tg.isExpanded){
+	tg.WebApp.expand();
+	};
+   
+  if (tg.MainButton.isVisible){
+	  tg.MainButton.hide();
+	  };
   }
 };
  
