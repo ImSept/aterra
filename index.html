@@ -22,7 +22,7 @@ if(tg != undefined){
   //if (!tg.isExpanded){
   tg.WebApp.expand();
 	//};
-  tg.MainButton.hide();
+  //tg.MainButton.hide();
   //if (tg.MainButton.isVisible){
 	  
 	//  };
@@ -75,7 +75,7 @@ document.querySelector('[confirm_new_aterra]').addEventListener('click', () => {
 	
 }); 
 
-
+document.querySelector('[bdy]').style.height = var(--tg-viewport-stable-height); 
  
   
 });
@@ -83,7 +83,7 @@ document.querySelector('[confirm_new_aterra]').addEventListener('click', () => {
 
 </head>
 
-<body style="height:var(--tg-viewport-stable-height)">
+<body bdy>
 
 <div class=message style='display:none' new_aterra>
 	<div class=message_content>
