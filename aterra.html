@@ -18,6 +18,11 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
+
+	let url = new URL(window.location.href);
+	aterra_id = url.searchParams.get('aterra_id');
+	document.querySelector('.back').src = "imgs/territories/" + aterra_id + ".jpg";
+	
   
   new CountdownTimer(new Date(Date.now() + (60 * 1000 + 999)), (timer) => {
 
