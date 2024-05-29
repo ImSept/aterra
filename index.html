@@ -10,18 +10,6 @@
 <script src="aterra_timer.js"></script>
 
 <script>
-let tg      = window.Telegram;
-
-if(tg != undefined){
-  if (tg.WebApp != undefined && tg.WebApp.initData != undefined){
-   
-  let safe    = tg.WebApp.initData;
-  
-  tg.WebApp.headerColor = 'black';
-  tg.WebApp.expand(); 
- // tg.MainButton.hide();
-  }
-};
 
 document.addEventListener('DOMContentLoaded', () => {
   
@@ -67,7 +55,21 @@ document.querySelector('#confirm_new_aterra').addEventListener('click', () => {
 	document.querySelector('.main_blured').className = 'main'; 
 	document.querySelector('[new_aterra]').style.display = 'none';
 	
-});  
+}); 
+
+let tg      = window.Telegram;
+
+if(tg != undefined){
+  if (tg.WebApp != undefined && tg.WebApp.initData != undefined){
+   
+  let safe    = tg.WebApp.initData;
+  
+  tg.WebApp.headerColor = 'black';
+  tg.WebApp.expand(); 
+ // tg.MainButton.hide();
+  }
+};
+ 
   
 });
 </script>
