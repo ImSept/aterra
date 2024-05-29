@@ -16,8 +16,12 @@ class Swiper {
   }
   
   checkDirection() {
-	  if (this.touchendX < this.touchstartX) window.location.href = to_right_url;
-	  if (this.touchendX > this.touchstartX) window.location.href = to_left_url;
+	  if (this.touchendX < this.touchstartX) {
+		  window.location.href = this._to_right;
+	  }
+	  if (this.touchendX > this.touchstartX) {
+		  window.location.href = this._to_left;
+	  }
 	}
   };
 
