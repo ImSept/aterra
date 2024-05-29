@@ -11,6 +11,26 @@
 
 <script>
 
+let tg      = window.Telegram;
+
+if(tg != undefined){
+  if (tg.WebApp != undefined){
+   
+  let safe    = tg.WebApp.initData;
+  
+  tg.WebApp.headerColor = '#0b1425';
+  //if (!tg.isExpanded){
+	tg.WebApp.expand();
+	//};
+tg.WebApp.showAlert('FUUUU');
+   tg.MainButton.hide();
+tg.WebApp.showAlert('CKKKK');
+  //if (tg.MainButton.isVisible){
+	  
+	//  };
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   
   new CountdownTimer(new Date(Date.now() + (60 * 1000 + 999)), (timer) => {
@@ -57,25 +77,7 @@ document.querySelector('[confirm_new_aterra]').addEventListener('click', () => {
 	
 }); 
 
-let tg      = window.Telegram;
 
-if(tg != undefined){
-  if (tg.WebApp != undefined){
-   
-  let safe    = tg.WebApp.initData;
-  
-  tg.WebApp.headerColor = '#0b1425';
-  //if (!tg.isExpanded){
-//	tg.WebApp.expand();
-	//};
-tg.WebApp.showAlert('FUUUU');
-   tg.MainButton.hide();
-tg.WebApp.showAlert('CKKKK');
-  //if (tg.MainButton.isVisible){
-	  
-	//  };
-  }
-};
  
   
 });
