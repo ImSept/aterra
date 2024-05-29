@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Absurd Territory</title>
+
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+
+<link href="styles.css" rel="stylesheet" type="text/css">
+
+<script src="aterra_timer.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  
+  new CountdownTimer(new Date(Date.now() + (60 * 1000 + 999)), (timer) => {
+
+	document.querySelector('#pr1').textContent = timer.hours + ':' + timer.minutes + ':' + timer.seconds;
+
+  }, () => {
+	document.querySelector('#pr1').textContent = 'READY!';
+  });
+  
+  new CountdownTimer(new Date(Date.now() + (120 * 1000 + 999)), (timer) => {
+
+	document.querySelector('#pr2').textContent = timer.hours + ':' + timer.minutes + ':' + timer.seconds;
+
+  }, () => {
+	document.querySelector('#pr2').textContent = 'READY!';
+  });
+
+  new CountdownTimer(new Date(Date.now() + (180 * 1000 + 999)), (timer) => {
+
+	document.querySelector('#pr3').textContent = timer.hours + ':' + timer.minutes + ':' + timer.seconds;
+
+  }, () => {
+	document.querySelector('#pr3').textContent = 'READY!';
+  });  
+  
+document.querySelector('#new_aterra').addEventListener('click', () => {
+	document.querySelector('.main').className = 'main_blured'; 
+	document.querySelector('[new_aterra]').style.display = 'flex';
+	
+});
+
+var showDialogButtons = document.querySelectorAll('[close_msg]');
+
+[...showDialogButtons].forEach(showDialogButton =>
+  showDialogButton.addEventListener('click', function() {
+	document.querySelector('.main_blured').className = 'main'; 
+	document.querySelector('[new_aterra]').style.display = 'none';
+  }));
+  
+document.querySelector('#confirm_new_aterra').addEventListener('click', () => {
+	document.querySelector('.main_blured').className = 'main'; 
+	document.querySelector('[new_aterra]').style.display = 'none';
+	
+});  
+  
+});
+</script>
+
+</head>
+
+<body>
+
+<div class=message style='display:none' new_aterra>
+	<div class=message_content>
+		<div class=block_info_title>New absurd territory</div>
+		<div class=content>
+			
+			<div class=grid_tbl>
+				<p>Requirements</p>
+				<p>Exists</p>
+			</div>
+			<div class=grid_tbl>
+				<p><b>ЗАПЯТЫЕ ДУРЕВА:</b></p>
+				<p><numeric>32</numeric> \ <b>65.3</b></p>
+			</div>
+			<div class=grid_tbl>
+				<p><b>ПРОЗРАЧНЫЕ КОРОВЫ:</b> </p>
+				<p><numeric>32</numeric> \ <b style="color:red">0.5</b></p>
+			</div>
+			<div class=grid_tbl>
+				<p><b>СВИНЦОВЫЕ ШТОРЫ:</b> </p>
+				<p><numeric>32</numeric> \ <b>65.3</b></p>
+			</div>			
+			
+		</div>
+		
+		<div class=footer>
+			<a href=# class=row id=no_active_button>Explore new territory!</a>
+			<a href=# class=row close_msg>Cancel</a>
+		</div>
+	</div>
+</div>
+
+<div class=main>
+	<div class=grtop></div>
+	<div class=grbot></div>
+		
+	<div>
+	<div class=title>Absurd territories</div>	
+	</div>
+	<div class=content>
+
+	
+		<div class=terra_block>
+			<a class='territory_img_cont pr_btn' href='aterra.html'>
+			<img class=territory_img src='imgs\territories\18.jpg'>
+			</a>
+			<div class=progress_cont>
+				<div class=progress>
+					<div class=sub_progress style="width:100%"></div>
+				</div>	
+				<div class=progress_status>
+					<div class=pr_lvl>🔝 <numeric>10</numeric></div>
+					<div class=pr_lvl>👤 <numeric>1</numeric></div>
+					<div class=pr_lvl>⚡️ <numeric>0</numeric></div>
+					<div class=pr_time id=pr1>Ready!</div>
+
+				</div>
+			</div>	
+		</div>
+		
+		<div class=terra_block>
+			<a class='territory_img_cont pr_btn' href='aterra.html'>
+			<img class=territory_img src='imgs\territories\19.jpg'>
+			</a>
+			<div class=progress_cont>
+				<div class=progress>
+					<div class=sub_progress style="width:100%"></div>
+				</div>	
+				<div class=progress_status>
+					<div class=pr_lvl>🔝 <numeric>10</numeric></div>
+					<div class=pr_lvl>👤 <numeric>1</numeric></div>
+					<div class=pr_lvl>⚡️ <numeric>0</numeric></div>
+					<div class=pr_time id=pr2>Ready!</div>
+
+				</div>
+			</div>	
+		</div>
+
+		<div class=terra_block>
+			<a class='territory_img_cont pr_btn' href='aterra.html'>
+			<img class=territory_img src='imgs\territories\20.jpg'>
+			</a>
+			<div class=progress_cont>
+				<div class=progress>
+					<div class=sub_progress style="width:100%"></div>
+				</div>	
+				<div class=progress_status>
+					<div class=pr_lvl>🔝 <numeric>10</numeric></div>
+					<div class=pr_lvl>👤 <numeric>1</numeric></div>
+					<div class=pr_lvl>⚡️ <numeric>0</numeric></div>
+					<div class=pr_time id=pr3>Ready!</div>
+
+				</div>
+			</div>	
+		</div>		
+
+		<div class=terra_block>
+			<a class='territory_img_cont pr_btn' href='aterra.html'>
+			<img class=territory_img src='imgs\territories\15.jpg'>
+			</a>
+			<div class=progress_cont>
+				<div class=progress>
+					<div class=sub_progress style="width:100%"></div>
+				</div>	
+				<div class=progress_status>
+					<div class=pr_lvl>🔝 <numeric>10</numeric></div>
+					<div class=pr_lvl>👤 <numeric>1</numeric></div>
+					<div class=pr_lvl>⚡️ <numeric>0</numeric></div>
+					<div class=pr_time id=pr3>Ready!</div>
+
+				</div>
+			</div>	
+		</div>	
+		
+		<div class=terra_block>
+			<a class='territory_img_cont pr_btn' href='aterra.html'>
+			<img class=territory_img src='imgs\territories\14.jpg'>
+			</a>
+			<div class=progress_cont>
+				<div class=progress>
+					<div class=sub_progress style="width:100%"></div>
+				</div>	
+				<div class=progress_status>
+					<div class=pr_lvl>🔝 <numeric>10</numeric></div>
+					<div class=pr_lvl>👤 <numeric>1</numeric></div>
+					<div class=pr_lvl>⚡️ <numeric>0</numeric></div>
+					<div class=pr_time id=pr3>Ready!</div>
+
+				</div>
+			</div>	
+		</div>		
+
+				
+		
+	</div>
+	<div>
+		<div class=footer id=noborder>
+			<a href='#' class=row>💥 Claim</a>
+			<a href='#' class=row id=new_aterra>🧩 New territory</a>
+		</div>		
+		<div class=footer>
+			<a href='profile.html' class=row>Profile</a>
+			<a href='index.html' class=row id=down>Absurd territories</a>
+			<a href='resurces.html' class=row>Received resources</a>
+			<a href='#' class=row>Quests</a>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

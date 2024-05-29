@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Absurd Territory</title>
+
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+
+<link href="styles.css" rel="stylesheet" type="text/css">
+
+<script src="aterra_timer.js"></script>
+
+<script>
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+  new CountdownTimer(new Date(Date.now() + (60 * 1000 + 999)), (timer) => {
+
+	document.querySelector('#pr1').textContent = timer.hours + ':' + timer.minutes + ':' + timer.seconds;
+
+  }, () => {
+	document.querySelector('#pr1').textContent = 'Ready!';
+  });
+
+document.querySelector('#up_level').addEventListener('click', () => {
+	document.querySelector('.main').className = 'main_blured'; 
+	document.querySelector('[up_level_msg]').style.display = 'flex';
+	
+});
+
+document.querySelector('#up_power').addEventListener('click', () => {
+	document.querySelector('.main').className = 'main_blured'; 
+	document.querySelector('[up_power_msg]').style.display = 'flex';
+	
+});
+
+document.querySelector('#buildings').addEventListener('click', () => {
+	document.querySelector('.main').className = 'main_blured'; 
+	document.querySelector('[buildings]').style.display = 'flex';
+	
+});
+
+document.querySelector('#nfts').addEventListener('click', () => {
+	document.querySelector('.main').className = 'main_blured'; 
+	document.querySelector('[nfts]').style.display = 'flex';
+	
+});
+
+var showDialogButtons = document.querySelectorAll('[close_msg]');
+
+[...showDialogButtons].forEach(showDialogButton =>
+  showDialogButton.addEventListener('click', function() {
+	document.querySelector('.main_blured').className = 'main'; 
+	document.querySelector('[up_level_msg]').style.display = 'none';
+	document.querySelector('[up_power_msg]').style.display = 'none';
+	document.querySelector('[buildings]').style.display = 'none';
+	document.querySelector('[nfts]').style.display = 'none';
+  }));
+
+
+
+document.querySelector('#confirm_up_lvl').addEventListener('click', () => {
+	document.querySelector('.main_blured').className = 'main'; 
+	document.querySelector('[up_level_msg]').style.display = 'none';
+	
+});
+
+document.querySelector('#confirm_up_pwr').addEventListener('click', () => {
+	document.querySelector('.main_blured').className = 'main'; 
+	document.querySelector('[up_power_msg]').style.display = 'none';
+	
+});
+  
+});
+</script>
+</head>
+
+<body>
+<div class=message style='display:none' nfts>
+	<div class=message_content>
+		<div class=block_info_title>NFT</div>
+			<div class=content>
+				<div class=grid_nft>
+					<div class=nft_img_cont><img src='imgs/nft/cargo.jpg' class=nft_img></div>
+					<div class=nft_info>
+						<p>Не самый первый самосвал</p>
+						<p>Increase receiving resources and time to claim</p>
+
+						<a class="row" style="width: 150px;display: flex;flex-direction: row;justify-content: space-evenly;">
+							set <numeric>1 <token>$ATERRA</token></numeric>
+							</a>
+					</div>
+				</div>	
+				<div class=grid_nft>
+					<div class=nft_img_cont><img src='imgs/nft/defence.jpg' class=nft_img></div>
+					<div class=nft_info>
+						<p>Серьезный ЧОП</p>
+						<p>No one knows what they going to do to increase power</p>
+						<div><a class="row userlink" style='width: 150px;'>@Vasily_tvoi_sosed</a></div>
+					</div>
+				</div>	
+				<div class=grid_nft>
+					<div class=nft_img_cont><img src='imgs/nft/nalog.jpg' class=nft_img></div>
+					<div class=nft_info>
+						<p>Абсурдный налоговый инспектор</p>
+						<p>Earn the token from neighbours. Just earn at all</p>
+						<a class="row" style="width: 150px;display: flex;flex-direction: row;justify-content: space-evenly;">
+							set <numeric>1 <token>$ATERRA</token></numeric>
+							</a>
+					</div>
+				</div>	
+				
+			</div>
+
+			
+			<div class=footer>
+				<a href=# class=row close_msg>Cancel</a>
+			</div>	
+	</div>
+</div>
+
+<div class=message style='display:none' buildings>
+	<div class=message_content>
+		<div class=block_info_title>buildings</div>
+			<div class=content>
+				<div class=grid_buildings>
+					<div>
+						<p><numeric>Столовая</numeric></p>
+						<p><numeric>+5% power</numeric></p>
+						<p>Cost: <numeric>100</numeric> <token>$ATERRA</token></p>
+					</div> 
+					<div><a class="row" style='width: 150px;'>create</a></div>
+				</div>				
+				<div class=grid_buildings>
+					<div>
+						<p><numeric>Сторожевая башня</numeric></p>
+						<p><i>Already constructed</i></p>
+					</div> 
+					<div><a class="row userlink" style='width: 150px;'>@Vasily_tvoi_sosed</a></div>
+				</div>	
+				<div class=grid_buildings>
+					<div>
+						<p><numeric>Архив</numeric></p>
+						<p><i>Already constructed</i></p> 
+					</div>	
+					<div><a class="row userlink">@Vasily_tvoi_sosed</a></div>
+				</div>		
+				<div class=grid_buildings>
+					<div>
+						<p><numeric>Лаборатория</numeric></p> 
+						<p><numeric>+5% power</numeric></p>
+						<p>Cost: <numeric>100</numeric> <token>$ATERRA</token></p>
+					</div> 
+					<div><a class="row" style='width: 150px;'>create</a></div>
+				
+				</div>					
+			</div>
+
+			
+			<div class=footer>
+				<a href=# class=row close_msg>Cancel</a>
+			</div>	
+	</div>
+</div>
+
+<div class=message style='display:none' up_level_msg>
+	<div class=message_content>
+		<div class=block_info_title>NEXT TERRITORY LEVEL</div>
+		<div class=message_content_p>
+			<p><b>Resources per claim:</b> <numeric>~162</numeric></p>
+			<p><b>Minimum time to claim:</b> <numeric>1</numeric> h <numeric> 03</numeric> m</p>
+			<p><b>Maximum time to claim:</b> <numeric>2</numeric> h <numeric> 27</numeric> m</p>
+			<p><b>Upgrade cost:</b> <numeric>128</numeric> <token>$ATERRA</token></p>
+		</div>
+		
+		<div class=footer>
+			<a href=# class=row id=confirm_up_lvl>Confirm Upgrade</a>
+			<a href=# class=row close_msg>Cancel</a>
+		</div>
+	</div>
+</div>
+
+<div class=message style='display:none' up_power_msg>
+	<div class=message_content>
+		<div class=block_info_title>INCREASE POWER</div>
+		<div class=message_content_p>
+			<p><b>Power:</b> <numeric>+5%</numeric></p>
+			<p><b>Upgrade cost:</b> <numeric>32</numeric> <token>$ATERRA</token></p>
+		</div>
+		
+		<div class=footer>
+			<a href=# class=row id=confirm_up_pwr>Confirm Upgrade</a>
+			<a href=# class=row close_msg>Cancel</a>
+		</div>
+	</div>
+</div>
+
+<div class=main>
+	<div class=grtop></div>
+	<div class=grbot></div>
+	<img class=back src='imgs\territories\20.jpg'>
+	
+	
+	<div class=title>Absurd Territory <numeric>#1</numeric></div>	
+	
+
+	
+	<div class=block_territory_info>
+		<div class=grid>
+			<div class=row id=nodecor><p><b>Territory level: </b> <numeric>6</numeric></p></div>
+			<div class=row id=nodecor><p><b>Your power: </b> <numeric>72%</numeric></p></div>
+		</div>
+		<div class=grid>
+			<div class=row id=nodecor><p><b>Buildings:</b> <numeric>1</numeric></p></div>
+			<div class=row id=nodecor><p><b>NFTs:</b> <numeric>1</numeric></p></div>				
+		</div>				
+	</div>	
+	<div class=content>
+
+		<div class=profile>
+
+			
+			<div class=block_info style="gap: 0px;">
+				<div class=block_info_title>Resourses</div>
+				<div class=grid_tbl>
+					<div class=grid_aterra_res>
+						<p><b>ЗАПЯТЫЕ ДУРЕВА</b></p>
+						<p style='font-size:25'><b><numeric>?</numeric></b></p>
+					</div>
+					
+					<div class=grid_aterra_res>
+						<p><b>ПРОЗРАЧНЫЕ КОРОВЫ</b></p>
+						<p style='font-size:25'><b><numeric>?</numeric></b></p>
+					</div>					 
+				</div>
+				
+				<div class=grid_tbl>
+					<div class=grid_aterra_res>
+						<p><b>СВИНЦОВЫЕ ШТОРЫ</b></p>
+						<p style='font-size:25'><b><numeric>?</numeric></b></p>
+					</div>
+					
+					<div class=grid_aterra_res style="flex-direction: column;">
+						<p align=center><b>Time to claim:</b>
+						<numeric id=pr1 style='font-size:16'>3</numeric></p>
+					</div>					 
+				</div>
+
+				
+			</div>	
+
+			<div class=block_info style="gap: 0px;">
+				<div class=block_info_title>Costs</div>
+				<div class=grid_tbl>
+					<p><b>UP LEVEL:</b></p>
+					<p><numeric>+12</numeric> res / claim</p>
+					<p><numeric>128</numeric> <token>$ATERRA</token></p>
+				</div>
+				<div class=grid_tbl>
+					<p><b>UP POWER:</b></p> 
+					<p><numeric>+5%</numeric></p>
+					<p><numeric>8</numeric> <token>$ATERRA</token></p>
+				</div>				
+				<div class=grid_tbl>
+					<p><b>CLAIM:</b> </p>
+					<p><numeric>~130</numeric> resources</p>
+					<p><numeric>0.06</numeric> <token>$ATERRA</token></p>
+				</div>				
+			</div>	
+
+			<div class=block_info>
+				<div class=block_info_title>Users on territory</div>
+				<div class=grid>
+					<a class="row userlink">@Vasily_tvoi_sosed</a>
+					<p>Power: <numeric>23%</numeric></p>
+				</div>
+				<div class=grid>
+					<a class="row userlink">@bilibobo____</a>
+					<p>Power: <numeric>43%</numeric></p>
+				</div>
+			</div>				
+		</div>
+		
+	
+	</div>
+	<div>
+		<div class=footer id=noborder>
+			<a href='#' class=row id=up_level>Up Level</a>
+			<a href='#' class=row id=up_power>Up Power</a>
+			<a href='#' class=row id=buildings>Build</a>
+			<a href='#' class=row id=nfts>NFTs</a>
+		</div>		
+		<div class=footer>
+			<a href='profile.html' class=row>Profile</a>
+			<a href='index.html' class=row id=down>Absurd territories</a>
+			<a href='resurces.html' class=row>Received resources</a>
+			<a href='#' class=row>Quests</a>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
