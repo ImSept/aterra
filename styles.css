@@ -10,7 +10,8 @@ body {
 	margin: 0px;
 	overflow: auto;
 	height: 640px;
-	width: var(--tg-viewport-stable-height);
+	width: 420px;
+	/*var(--tg-viewport-stable-height);*/
 	color: white;
 	background-color: #0b1425;
 	font-family: WorkSans;
@@ -89,7 +90,7 @@ p {
 	flex-direction: column;
 	justify-content: space-between;
 	
-	width: var(--tg-viewport-stable-height);
+	width: 420px;
 	height: 100%;
 	flex-direction: column;
 	position: absolute;
@@ -107,7 +108,7 @@ p {
 	flex-direction: column;
 	justify-content: space-between;
 	
-	width: var(--tg-viewport-stable-height);
+	width: 420px;
 	height: 100%;
 	flex-direction: column;
 	position: absolute;	
