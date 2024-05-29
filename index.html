@@ -51,7 +51,7 @@ var showDialogButtons = document.querySelectorAll('[close_msg]');
 	document.querySelector('[new_aterra]').style.display = 'none';
   }));
   
-document.querySelector('#confirm_new_aterra').addEventListener('click', () => {
+document.querySelector('[confirm_new_aterra]').addEventListener('click', () => {
 	document.querySelector('.main_blured').className = 'main'; 
 	document.querySelector('[new_aterra]').style.display = 'none';
 	
@@ -60,7 +60,7 @@ document.querySelector('#confirm_new_aterra').addEventListener('click', () => {
 let tg      = window.Telegram;
 
 if(tg != undefined){
-  if (tg.WebApp != undefined){
+  if (tg.WebApp != undefined && tg.WebApp.initData != undefined){
   alert('here');
    
   let safe    = tg.WebApp.initData;
@@ -109,7 +109,7 @@ if(tg != undefined){
 		</div>
 		
 		<div class=footer>
-			<a href=# class=row id=no_active_button>Explore new territory!</a>
+			<a href=# class=row id=no_active_button confirm_new_aterra>Explore new territory!</a>
 			<a href=# class=row close_msg>Cancel</a>
 		</div>
 	</div>
