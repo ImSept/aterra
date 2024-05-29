@@ -9,7 +9,7 @@ body {
 	padding: 0px;
 	margin: 0px;
 	overflow: auto;
-	height: var(--tg-viewport-stable-height);
+	height: auto;
 	width: 420px;
 	/*var(--tg-viewport-stable-height);*/
 	color: white;
