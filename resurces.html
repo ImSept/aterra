@@ -6,71 +6,186 @@
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 
 <link href="styles.css" rel="stylesheet" type="text/css">
+<link href="burnig_circle.css" rel="stylesheet" type="text/css">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="init_tg.js"></script>
 <script src="swipe.js"></script>
+<script src="load_and_fill.js"></script>
+
 <script>
+var user_id = '920624208';
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
-  new Swiper('https://imsept.github.io/aterra/index.html', '#');	
-  });
+
+	new Swiper('https://imsept.github.io/aterra/index.html', '#');	
+	
+	new DataLoader({'cmd':'user_resources', 'id':user_id}, (data) => {
+	
+		let content_block = '';
+		for (let x in data) {
+			//let content_block;
+			content_block += '<div class=resurce_block>';
+			
+			//content_block += '<a class="territory_img_cont pr_btn" href="aterra.html?aterra_id=' + x + '">';
+			//content_block += '<img class=territory_img src="imgs\\territories\\' + x + '.jpg">';
+			//content_block += '</a>';
+			
+			content_block += '<div class=resurce_cont>';
+			
+			content_block += '<div class=resurce_caption>' + data[x][0] + '</div>';
+			content_block += '<div class=resurce_value><numeric>' + data[x][1] + '</<numeric></div>';
+			content_block += '</div>';
+			
+			content_block += '<a href = "#" class="pr_btn' + (data[x][2] == '1' ? ' down' : '') + '" id=' + x + ' no_burn_btn>📛</a>';
+			content_block += '<a href = "#" class=pr_btn id=' + x + ' send_resource_btn>🔖</a>';
+			//content_block += '<a href = "#" class=pr_btn>⛺️</a>';
+			content_block += '</div>';
+
+		}
+		document.querySelector("[resources_table]").innerHTML = content_block;
+		
+		var dls = document.querySelectorAll('[no_burn_btn]');
+
+		[...dls].forEach(dl => dl.addEventListener('click', (e) => {
+			var res_id = e.currentTarget.id;
+			var msg_content = '<div class=resurce_caption>' + data[res_id][0] + '</div>';
+			var no_burn = data[res_id][2];
+			
+			if (e.currentTarget.className == 'pr_btn') {
+				no_burn = 1;
+				e.currentTarget.className = 'pr_btn down';
+				msg_content += '<div><numeric>+</numeric> Добавлено к списку несжегаемых</div>';
+			}
+			else {
+				no_burn = 0;
+				e.currentTarget.className = 'pr_btn';
+				msg_content += '<div><numeric>-</numeric> Исключено из списка несжегаемых</div>';			
+			}	
+			new DataLoader({'cmd':'resource_no_burn', 'id':user_id, 'rid':res_id, 'no_burn':no_burn}, () => {
+				document.querySelector("[info_content]").innerHTML = msg_content;
+				document.querySelector("[info]").style.display = 'flex';
+				document.querySelector(".main").className = 'main_blured';					
+			}, false);
+		}));	
+		
+		var dls = document.querySelectorAll('[send_resource_btn]');
+
+		[...dls].forEach(dl => dl.addEventListener('click', (e) => {
+			var res_id = e.currentTarget.id;
+			var msg_content = '<div class=resurce_caption>' + data[res_id][0] + '</div>';
+
+
+			document.querySelector("[send_form]").innerHTML = msg_content;
+			document.querySelector("[send_resource]").style.display = 'flex';
+			document.querySelector(".main").className = 'main_blured';					
+		
+			
+		}));	
+		
+		
+		
+		
+	}, false);
+	
+	var BurnButtons = document.querySelectorAll('[burn_btn]');
+
+	[...BurnButtons].forEach(BurnButton =>
+	  BurnButton.addEventListener('click', function(e) {
+	    var burn_ratio = (e.currentTarget.id == 'half_burn') ? 0.5 : 1;
+		
+		new DataLoader({'cmd':'burn_resources', 'id':user_id, 'burn_ratio':burn_ratio}, (data) => {
+			document.querySelector("[burned_content]").innerHTML = data['result'];
+			document.querySelector("[burned]").style.display = 'flex';
+			document.querySelector(".main").className = 'main_blured';	
+			
+		}, false);
+	  
+	}));		
+	
+	
+	var showDialogButtons = document.querySelectorAll('[close_msg]');
+
+	[...showDialogButtons].forEach(closeDialogButton =>
+	  closeDialogButton.addEventListener('click', function() {
+		document.querySelector('.main_blured').className = 'main'; 
+		document.querySelector('[info]').style.display = 'none';
+		document.querySelector('[send_resource]').style.display = 'none';
+	}));	
+	
+	document.querySelector('[close_burned]').addEventListener('click', () => {
+		window.location.reload();
+	});
+	
+
+});
 </script>
 
 </head>
 
 <body>
 
+<div class=message style='display:none' burned>
+	<div class=message_content>
+		<div class=block_info_title>Burning resources</div>
+
+
+<div class="circle"></div>
+<svg>
+  <filter id="wavy">
+    <feTurbulence x="0" y="0" baseFrequency="0.009" numOctaves="5" speed="2">
+      <animate attributeName="baseFrequency" dur="60s" values="0.02; 0.005; 0.02" repeatCount="indefinite">
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" scale="30"></feTurbulence>
+  </filter>
+</svg>
+
+		
+			<div class=content_just_msg burned_content></div>
+
+			<div class=footer>
+				<a href=# class=row close_burned>OK</a>
+			</div>	
+	</div>
+</div>
+
+<div class=message style='display:none' info>
+	<div class=message_content>
+		<div class=block_info_title>information</div>
+			<div class=content_just_msg info_content></div>
+
+			<div class=footer>
+				<a href=# class=row close_msg>OK</a>
+			</div>	
+	</div>
+</div>
+
+<div class=message style='display:none' send_resource>
+	<div class=message_content>
+		<div class=block_info_title>Send resource</div>
+			<div class=content_just_msg send_form>Comming soon</div>
+
+			<div class=footer>
+				<a href=# class=row close_msg>OK</a>
+			</div>	
+	</div>
+</div>
+
 <div class=main>
 	<div class=grtop></div>
 	<div class=grbot></div>
 	
 	<div>
-	<div class=title>Received resources</div>	
+	<div class=title>Received resurces</div>	
 	</div>
-	<div class=content>
-
+	<div class=content resources_table></div>
 	
-		<div class=resurce_block>
-			<div class=resurce_cont>
-				<div class=resurce_caption><lnk>@ Запятые дурева</lnk></div>
-				<div class=resurce_value>Количество: <numeric>568.45</numeric></div>
-				<div class=resurce_all_claimed>Добыто всеми: <numeric>12.32%</numeric></div>
-				
-			</div>	
-			<a href = '#' class=pr_btn id=down>📛</a>
-			<a href = '#' class=pr_btn>🔖</a>
-			<a href = '#' class=pr_btn>⛺️</a>
-		</div>
-		
-		<div class=resurce_block>
-			<div class=resurce_cont>
-				<div class=resurce_caption>Прозрачные коровы</div>
-				<div class=resurce_value>Количество: <numeric>68.45</numeric></div>
-				<div class=resurce_all_claimed>Добыто всеми: <numeric>12.32%</numeric></div>
-				
-			</div>	
-			<a href = '#' class=pr_btn>📛</a>
-			<a href = '#' class=pr_btn>🔖</a>
-			<a href = '#' class=pr_btn>⛺️</a>
-		</div>		
-		
-		<div class=resurce_block>
-			<div class=resurce_cont>
-				<div class=resurce_caption>Свинцовые шторы</div>
-				<div class=resurce_value>Количество: <numeric>36500.45</numeric></div>
-				<div class=resurce_all_claimed>Добыто всеми: <numeric>49.32%</numeric></div>
-				
-			</div>	
-			<a href = '#' class=pr_btn>📛</a>
-			<a href = '#' class=pr_btn>🔖</a>
-			<a href = '#' class=pr_btn>⛺️</a>
-		</div>		
-		
-	
-	</div>
 	<div>
 		<div class=footer id=noborder>
-			<a href='#' class=row>🔥 Half burn</a>
-			<a href='#' class=row>🔥 All burn</a>
+			<a href='#' class=row burn_btn id=half_burn>🔥 Half burn</a>
+			<a href='#' class=row burn_btn id=full_burn>🔥 All burn</a>
 		</div>		
 		<div class=footer>
 			<a href='profile.html' class=row>Profile</a>

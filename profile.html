@@ -9,28 +9,82 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="init_tg.js"></script>
 <script src="swipe.js"></script>
+<script src="load_and_fill.js"></script>
+
 <script>
+var user_id = '920624208'
 document.addEventListener('DOMContentLoaded', () => {
-  new Swiper('#', 'https://imsept.github.io/aterra/index.html');	
-  });
+	// пальцеп туды сюды
+	new Swiper('#', 'https://imsept.github.io/aterra/index.html');	
+	
+	
+	let ServerDataLoader = new DataLoader({'cmd':'profile', 'id':user_id}, (data) => {
+		if (data['alliance_caption'] != '') document.querySelector('[alliance]').style.display = 'flex';	
+	});
+ 
+	document.querySelector('[leader_board]').addEventListener('click', () => {
+
+		new DataLoader({'cmd': 'users_rate', 'id':'920624208'}, (data) => {
+			if (Object.keys(data).length != 0) {
+				content_block = '';
+				for (let x in data['list_rate']) {
+					content_block += "<div class=grid_tbl style='min-height:20px;'>";
+					content_block += "<p style='min-width:25px !important;'>#" + (parseInt(x)+1).toString() + "</p>";
+					content_block += "<numeric style='width:100px'>" + data['list_rate'][x][1] + "</numeric>";
+					content_block += "<numeric style='width:100%;text-align:left'>" + data['list_rate'][x][0] + "</numeric>";
+					
+					content_block += "<lnk>" + (data['list_rate'][x][2] != '' ? '@'+data['list_rate'][x][2] : '') + "</lnk>";
+					content_block += "</div>";	
+				
+				}
+				document.querySelector("[users_rate_table]").innerHTML = content_block;
+				document.querySelector('.main').className = 'main_blured'; 
+				document.querySelector('[users_rate_msg]').style.display = 'flex';				
+				
+
+
+			}
+		}, false);
+		
+	}); 
+	
+var showDialogButtons = document.querySelectorAll('[close_msg]');
+
+[...showDialogButtons].forEach(closeDialogButton =>
+  closeDialogButton.addEventListener('click', function() {
+	document.querySelector('.main_blured').className = 'main'; 
+	document.querySelector('[users_rate_msg]').style.display = 'none';
+	//document.querySelector('[up_power_msg]').style.display = 'none';
+	//document.querySelector('[buildings]').style.display = 'none';
+	//document.querySelector('[nfts]').style.display = 'none';
+  }));	
+	
+  
+});
 </script>
 
 </head>
 
-<body class="w-full max-h-[var(--tg-viewport-height)] min-h-[var(--tg-viewport-height)] bg-[#000000] __variable_af7b73 font-prompt tc-using-mouse">
+<body>
 
-<div class="main         w-full
-        max-h-[var(--tg-viewport-stable-height)] h-[var(--tg-viewport-stable-height)]
-        bg-[radial-gradient(circle_at_bottom,_var(--tw-gradient-stops))] from-main-from to-main-to
-        overflow-y-auto 
-        flex flex-col
-        Main_openScreen__Iuhfh">
+<div class=message style='display:none' users_rate_msg>
+	<div class=message_content>
+		<div class=block_info_title>Leader board</div>
+		<div class=content users_rate_table></div>
+		
+		<div class=footer>
+			<a href=# class=row close_msg>Close</a>
+		</div>
+	</div>
+</div>
+
+<div class="main">
 	<div class=grtop></div>
 	<div class=grbot></div>
 	<img class=back src='imgs\profile.jpg'>
 	
 	<div>
-	<div class=title>Profile <div class=user_name>Svejak38</div><div class=wallet>dfg...sfd</div></div>	
+	<div class=title>Profile <div class=user_name user_name>Svejak38</div><div class=wallet wallet>dfg...sfd</div></div>	
 	</div>
 	<div class=content>
 
@@ -38,29 +92,29 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class=block_info style="gap: 0px;">
 				<div class=grid_tbl>
 					<p><b>Balance:</b></p>
-					<p><numeric>25.33</numeric> <token>$ATERRA</token></p>
+					<p><numeric balance>25.33</numeric> <token>$ATERRA</token></p>
 				</div>
 				<div class=grid_tbl>
 					<p><b>Total resources:</b></p>
-					<p><numeric>5222</numeric></p>
+					<p><numeric total_res>5222</numeric></p>
 				</div>
 				<div class=grid_tbl>				
 					<p><b>Claim cost:</b></p>
-					<p><numeric>0.5</numeric> <token>$ATERRA</token></p>
+					<p><numeric claim_cost>0.5</numeric> <token>$ATERRA</token></p>
 				</div>	
 			</div>
 			
-			<div class=block_info style="gap: 0px;">
+			<div class=block_info style="gap: 0px; display:none" alliance>
 				<div class=grid_tbl>
 					<p><b>Alliance:</b></p>
-					<p><lnk>@Lohi_vsei_zemli</lnk></p>
+					<p><lnk alliance_caption>@Lohi_vsei_zemli</lnk></p>
 				</div>
 				<div class=grid_tbl>
 					<p><b>Alliance rate: <numeric>1233.5</numeric></p>
 					<p><numeric style="color:red">#1</numeric> of <numeric>20</numeric> alliances</b></p>
 				</div>
 				<div class=grid_tbl>				
-				<p><b>Member rank: <numeric>54.4</numeric></p>
+				<p><b>Member rank: <numeric personal_rang>54.4</numeric></p>
 				<p><numeric style="color:red">#1</numeric> of <numeric>20</numeric> members</b></p>			
 				</div>
 			</div>
@@ -73,33 +127,34 @@ document.addEventListener('DOMContentLoaded', () => {
 				</div>
 				<div class=grid_tbl>						
 					<p><b>Count territories:</b></p>
-					<p><numeric>2</numeric></p>	
+					<p><numeric count_territories>2</numeric></p>	
 				</div>
+				<div class=grid_tbl>						
+					<p><b>Ready to claim:</b></p>
+					<p><numeric count_ready>2</numeric></p>	
+				</div>				
 				<div class=grid_tbl>					
 					<p><b>Borders:</b></p>
-					<p><numeric>2</numeric></p>			
+					<p><numeric count_borders>2</numeric></p>			
 				</div>
 				<div class=grid_tbl>					
 					<p><b>Mean power:</b></p>
-					<p><numeric>63%</numeric></p>			
+					<p><numeric mean_power>63%</numeric></p>			
 				</div>
 				<div class=grid_tbl>					
 					<p><b>Mean level:</b></p>
-					<p><numeric>4.5</numeric></p>			
+					<p><numeric mean_level>4.5</numeric></p>			
 				</div>
 			</div>			
 			
      
 		</div>
 	
-		
-
-	
 	</div>
 	<div>
 		<div class=footer id=noborder>
 			<a href='#' class=row>Invite friend</a>
-			<a href='#' class=row>Leader board</a>
+			<a href='#' class=row leader_board>Leader board</a>
 			<a href='#' class=row>NFT collections</a>
 		</div>		
 		<div class=footer>

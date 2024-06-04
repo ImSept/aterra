@@ -36,3 +36,17 @@
         }
       }
     }
+
+    class IntervalTimer {
+      constructor(interval, func) {
+        this._interval = interval;
+        this._do = func;
+        this._timerId = null;
+        this._start();
+      }
+      _start() {
+		this._do()
+        this._timerId = setInterval(this._do.bind(this), this._interval);
+      }
+
+    }

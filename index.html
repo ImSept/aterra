@@ -10,36 +10,89 @@
 <script src="aterra_timer.js"></script>
 <script src="init_tg.js"></script>
 <script src="swipe.js"></script>
+<script src="load_and_fill.js"></script>
+
 <script>
 
 
 
+
 document.addEventListener('DOMContentLoaded', () => {
-  new Swiper('https://imsept.github.io/aterra/profile.html', 'https://imsept.github.io/aterra/resurces.html');	
-  
-  new CountdownTimer(new Date(Date.now() + (60 * 1000 + 999)), (timer) => {
+	new Swiper('https://imsept.github.io/aterra/profile.html', 'https://imsept.github.io/aterra/resurces.html');
+	
+	new DataLoader({'cmd':'new_aterra_req', 'id':'920624208'}, (data) => {
+		all_exists = true
+		for (let x in data['new_aterra_need_res']) {
+			document.querySelector('[res' + x + ']').id = 'res' + data['new_aterra_need_res'][x];
+			document.querySelector('[res_exists' + x + ']').textContent = data['res_exists'][x];
+			if (parseFloat(data['res_exists'][x]) < parseFloat(data['new_aterra_need'])) {
+				document.querySelector('[res_exists' + x + ']').style.color = 'red';
+				all_exists *= false;
+				}
+		}
+		if (all_exists != true) {
+			document.querySelector('[confirm_new_aterra]').id = 'no_active_button';
+		
+		}
+	});
+	new DataLoader({'cmd': 'resources'}, (data) => {
+		for (let x in data) {
+			let el = document.querySelector('#res' + x)
+			if (el != undefined) el.textContent = data[x]['caption'];	
+		}	
+	});	
+	
+	new DataLoader({'cmd':'aterrs', 'id':'920624208'}, (data) => {
+	
+		var content_block = '';
+		for (let x in data) {
+			//let content_block;
+			content_block = '<div class=terra_block>';
+			
+			content_block += '<a class="territory_img_cont pr_btn" href="aterra.html?aterra_id=' + x + '">';
+			content_block += '<img class=territory_img src="imgs\\territories\\' + x + '.jpg">';
+			content_block += '</a>';
+			
+			content_block += '<div class=progress_cont>';
+			
+			content_block += '<div class=progress style="height:20px" id=bar' + x + '>';
+			content_block += '<div class=sub_progress style="width:' + data[x]['timer'][4]*100 + '%" id=spr' + x + '></div>';
+			content_block += '</div>';
 
-	document.querySelector('#pr1').textContent = timer.hours + ':' + timer.minutes + ':' + timer.seconds;
+			content_block += '<div class=progress_status>';
+			content_block += '<div class=pr_lvl>🔝 <numeric>' + data[x]['level'] + '</numeric></div>';
+			content_block += '<div class=pr_lvl>👤 <numeric>' + data[x]['users_count'] + '</numeric></div>';
+			content_block += '<div class=pr_lvl>⚡️ <numeric>' + data[x]['nfts_count'] + '</numeric></div>';
+			content_block += '<div class=pr_time id=pr' + x + '>Ready!</div>';
 
-  }, () => {
-	document.querySelector('#pr1').textContent = 'READY!';
-  });
-  
-  new CountdownTimer(new Date(Date.now() + (120 * 1000 + 999)), (timer) => {
+			content_block += '</div></div></div>';
+			document.querySelector("[aterrs]").innerHTML += content_block;
+			
+			new CountdownTimer(new Date(Date.now() + (data[x]['timer'][0] * 1000 + 999)), (timer) => {
 
-	document.querySelector('#pr2').textContent = timer.hours + ':' + timer.minutes + ':' + timer.seconds;
+				document.querySelector('#pr' + x).textContent = timer.hours + ':' + timer.minutes + ':' + timer.seconds;
 
-  }, () => {
-	document.querySelector('#pr2').textContent = 'READY!';
-  });
+				}, () => {
+					document.querySelector('#pr' + x).textContent = 'READY!';
+				});			
+			
+	
+		}
+		//if (data['alliance_caption'] != '') document.querySelector('[alliance]').style.display = 'flex';	
+	});
 
-  new CountdownTimer(new Date(Date.now() + (180 * 1000 + 999)), (timer) => {
+	new IntervalTimer(10000, () => {
+		new DataLoader({'cmd':'aterrs', 'id':'920624208'}, (data) => {
+			for (let x in data) {
+				document.querySelector('#spr' + x).style.width = data[x]['timer'][4]*100 + '%';
+				if (data[x]['timer'][4] > 0.8) {
+					document.querySelector('#bar' + x).className += ' anim_border';
+					}
+			}
+			
+		});
+	});
 
-	document.querySelector('#pr3').textContent = timer.hours + ':' + timer.minutes + ':' + timer.seconds;
-
-  }, () => {
-	document.querySelector('#pr3').textContent = 'READY!';
-  });  
   
 document.querySelector('#new_aterra').addEventListener('click', () => {
 	document.querySelector('.main').className = 'main_blured'; 
@@ -56,10 +109,38 @@ var showDialogButtons = document.querySelectorAll('[close_msg]');
   }));
   
 document.querySelector('[confirm_new_aterra]').addEventListener('click', () => {
-	document.querySelector('.main_blured').className = 'main'; 
-	document.querySelector('[new_aterra]').style.display = 'none';
+	if (document.querySelector('[confirm_new_aterra]').id == 'no_active_button') {
+		alert('no res')
+	}
+	else {
+		document.querySelector('.main_blured').className = 'main'; 
+		document.querySelector('[new_aterra]').style.display = 'none';
+	}
 	
 }); 
+
+document.querySelector('[do_all_claim]').addEventListener('click', () => {
+	new DataLoader({'cmd': 'do_claim_all', 'id':'920624208'}, (data) => {
+		if (Object.keys(data).length != 0) {
+			content_block = '';
+			for (let x in data) {
+				content_block += "<div class=grid_tbl>";
+				content_block += "<p><b class='resource_caption'>" + x + "</b></p>";
+				content_block += "<p><numeric>" + data[x] + "</numeric></p>";
+				content_block += "</div>";			
+			
+			}
+			document.querySelector("[claim_result_resources]").innerHTML = content_block;
+			document.querySelector('.main').className = 'main_blured'; 
+			document.querySelector('[claim_result]').style.display = 'flex';
+		}
+	}, false);
+});
+
+document.querySelector('[close_claim_result_msg]').addEventListener('click', () => {
+	window.location.reload();
+});
+
 
 //document.querySelector('[bdy]').style.height = var(--tg-viewport-stable-height); 
  
@@ -71,6 +152,17 @@ document.querySelector('[confirm_new_aterra]').addEventListener('click', () => {
 
 <body bdy>
 
+<div class=message style='display:none' claim_result>
+	<div class=message_content>
+		<div class=block_info_title>Claim result</div>
+		<div class=content claim_result_resources></div>
+		
+		<div class=footer>
+			<a href=# class=row close_claim_result_msg>OK</a>
+		</div>
+	</div>
+</div>
+
 <div class=message style='display:none' new_aterra>
 	<div class=message_content>
 		<div class=block_info_title>New absurd territory</div>
@@ -81,22 +173,22 @@ document.querySelector('[confirm_new_aterra]').addEventListener('click', () => {
 				<p>Exists</p>
 			</div>
 			<div class=grid_tbl>
-				<p><b>ЗАПЯТЫЕ ДУРЕВА:</b></p>
-				<p><numeric>32</numeric> \ <b>65.3</b></p>
+				<p><b res0 class='resource_caption'></b></p>
+				<p><numeric new_aterra_need></numeric> \ <b res_exists0></b></p>
 			</div>
 			<div class=grid_tbl>
-				<p><b>ПРОЗРАЧНЫЕ КОРОВЫ:</b> </p>
-				<p><numeric>32</numeric> \ <b style="color:red">0.5</b></p>
+				<p><b res1 class='resource_caption'></b> </p>
+				<p><numeric new_aterra_need></numeric> \ <b res_exists1></b></p>
 			</div>
 			<div class=grid_tbl>
-				<p><b>СВИНЦОВЫЕ ШТОРЫ:</b> </p>
-				<p><numeric>32</numeric> \ <b>65.3</b></p>
+				<p><b res2 class='resource_caption'></b> </p>
+				<p><numeric new_aterra_need></numeric> \ <b res_exists2></b></p>
 			</div>			
 			
 		</div>
 		
 		<div class=footer>
-			<a href=# class=row id=no_active_button confirm_new_aterra>Explore new territory!</a>
+			<a href=# class=row confirm_new_aterra>Explore new territory!</a>
 			<a href=# class=row close_msg>Cancel</a>
 		</div>
 	</div>
@@ -109,105 +201,13 @@ document.querySelector('[confirm_new_aterra]').addEventListener('click', () => {
 	<div>
 	<div class=title>Absurd territories</div>	
 	</div>
-	<div class=content>
-
+	<div class=content aterrs>
 	
-		<div class=terra_block>
-			<a class='territory_img_cont pr_btn' href='aterra.html?aterra_id=18'>
-			<img class=territory_img src='imgs\territories\18.jpg'>
-			</a>
-			<div class=progress_cont>
-				<div class=progress>
-					<div class=sub_progress style="width:100%"></div>
-				</div>	
-				<div class=progress_status>
-					<div class=pr_lvl>🔝 <numeric>10</numeric></div>
-					<div class=pr_lvl>👤 <numeric>1</numeric></div>
-					<div class=pr_lvl>⚡️ <numeric>0</numeric></div>
-					<div class=pr_time id=pr1>Ready!</div>
-
-				</div>
-			</div>	
-		</div>
-		
-		<div class=terra_block>
-			<a class='territory_img_cont pr_btn' href='aterra.html?aterra_id=19'>
-			<img class=territory_img src='imgs\territories\19.jpg'>
-			</a>
-			<div class=progress_cont>
-				<div class=progress>
-					<div class=sub_progress style="width:100%"></div>
-				</div>	
-				<div class=progress_status>
-					<div class=pr_lvl>🔝 <numeric>10</numeric></div>
-					<div class=pr_lvl>👤 <numeric>1</numeric></div>
-					<div class=pr_lvl>⚡️ <numeric>0</numeric></div>
-					<div class=pr_time id=pr2>Ready!</div>
-
-				</div>
-			</div>	
-		</div>
-
-		<div class=terra_block>
-			<a class='territory_img_cont pr_btn' href='aterra.html?aterra_id=20'>
-			<img class=territory_img src='imgs\territories\20.jpg'>
-			</a>
-			<div class=progress_cont>
-				<div class=progress>
-					<div class=sub_progress style="width:100%"></div>
-				</div>	
-				<div class=progress_status>
-					<div class=pr_lvl>🔝 <numeric>10</numeric></div>
-					<div class=pr_lvl>👤 <numeric>1</numeric></div>
-					<div class=pr_lvl>⚡️ <numeric>0</numeric></div>
-					<div class=pr_time id=pr3>Ready!</div>
-
-				</div>
-			</div>	
-		</div>		
-
-		<div class=terra_block>
-			<a class='territory_img_cont pr_btn' href='aterra.html?aterra_id=15'>
-			<img class=territory_img src='imgs\territories\15.jpg'>
-			</a>
-			<div class=progress_cont>
-				<div class=progress>
-					<div class=sub_progress style="width:100%"></div>
-				</div>	
-				<div class=progress_status>
-					<div class=pr_lvl>🔝 <numeric>10</numeric></div>
-					<div class=pr_lvl>👤 <numeric>1</numeric></div>
-					<div class=pr_lvl>⚡️ <numeric>0</numeric></div>
-					<div class=pr_time id=pr3>Ready!</div>
-
-				</div>
-			</div>	
-		</div>	
-		
-		<div class=terra_block>
-			<a class='territory_img_cont pr_btn' href='aterra.html?aterra_id=14'>
-			<img class=territory_img src='imgs\territories\14.jpg'>
-			</a>
-			<div class=progress_cont>
-				<div class=progress>
-					<div class=sub_progress style="width:100%"></div>
-				</div>	
-				<div class=progress_status>
-					<div class=pr_lvl>🔝 <numeric>10</numeric></div>
-					<div class=pr_lvl>👤 <numeric>1</numeric></div>
-					<div class=pr_lvl>⚡️ <numeric>0</numeric></div>
-					<div class=pr_time id=pr3>Ready!</div>
-
-				</div>
-			</div>	
-		</div>		
-
-				
 		
 	</div>
 	<div>
 		<div class=footer id=noborder>
-			<a href='#' class=row>💥 Claim</a>
+			<a href='#' class=row do_all_claim>💥 Claim all</a>
 			<a href='#' class=row id=new_aterra>🧩 New territory</a>
 		</div>		
 		<div class=footer>

@@ -6,32 +6,79 @@
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 
 <link href="styles.css" rel="stylesheet" type="text/css">
-
-
-<script src="aterra_timer.js"></script>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="aterra_timer.js"></script>
 <script src="init_tg.js"></script>
+<script src="swipe.js"></script>
+<script src="load_and_fill.js"></script>
 
 <script>
 
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
-
 	let url = new URL(window.location.href);
 	//alert(url);
 	aterra_id = url.searchParams.get('aterra_id');
-	document.querySelector('.back').src = "https://imsept.github.io/aterra/imgs/territories/" + aterra_id + ".jpg";
+
+	// пальцеп туды сюды
+	//new Swiper('#', 'https://imsept.github.io/aterra/index.html');
 	
+	
+	let aterra = new DataLoader({'cmd':'aterra', 'id':'920624208', 'aid':aterra_id}, (data) => {
+		
+		for (let x in data['resources']) {
+			document.querySelector('[res' + x + ']').id = 'res' + data['resources'][x];	
+			document.querySelector('[res' + x + '_claimed]').id = 'res' + data['resources'][x] + '_claimed';				
+			//res0_claimed
+		}
+		
+		new CountdownTimer(new Date(Date.now() + (data['timer'][0] * 1000 + 999)), (timer) => {
+
+			document.querySelector('#pr1').textContent = timer.hours + ':' + timer.minutes + ':' + timer.seconds;
+
+			}, () => {
+				document.querySelector('#pr1').style.display = 'none';
+		});
+		
+		new CountdownTimer(new Date(Date.now() + (data['timer'][3] * 1000 + 999)), (timer) => {}, () => {
+				document.querySelector('[do_claim]').style.display = 'flex';
+		});		
+		
+	});	
+
+	
+	new DataLoader({'cmd': 'resources'}, (data) => {
+		for (let x in data) {
+			let el = document.querySelector('#res' + x)
+			if (el != undefined) el.textContent = data[x]['caption'];	
+			//el = document.querySelector('#res' + x + '_claimed')
+			//if (el != undefined) el.textContent = data[x]['claimed'];	
+			//res0_claimed
+		}	
+		//alert(data);
+	});
+	
+	new IntervalTimer(10000, () => {
+		new DataLoader({'cmd': 'aterra_res_claim', 'id':'920624208', 'aid':aterra_id}, (data) => {
+			for (let x in data['res']) {
+				document.querySelector('#res' + x + '_claimed').textContent = data['res'][x];				
+			}
+			document.querySelector('#spr').style.width = data['timer'][4]*100 + '%';
+			if (data['timer'][4] > 0.8) {
+				document.querySelector('#bar').className = document.querySelector('#bar').className + ' anim_border';
+				}
+			
+		});
+	});
+	
+
+ 
+
   
-  new CountdownTimer(new Date(Date.now() + (60 * 1000 + 999)), (timer) => {
+	//document.querySelector('.back').src = "https://imsept.github.io/aterra/imgs/territories/" + aterra_id + ".jpg";
+	document.querySelector('.back').src = "imgs/territories/" + aterra_id + ".jpg";
+	document.querySelector('[aid]').textContent = "#" + aterra_id;
+  
 
-	document.querySelector('#pr1').textContent = timer.hours + ':' + timer.minutes + ':' + timer.seconds;
-
-  }, () => {
-	document.querySelector('#pr1').textContent = 'Ready!';
-  });
 
 document.querySelector('#up_level').addEventListener('click', () => {
 	document.querySelector('.main').className = 'main_blured'; 
@@ -59,8 +106,8 @@ document.querySelector('#nfts').addEventListener('click', () => {
 
 var showDialogButtons = document.querySelectorAll('[close_msg]');
 
-[...showDialogButtons].forEach(showDialogButton =>
-  showDialogButton.addEventListener('click', function() {
+[...showDialogButtons].forEach(closeDialogButton =>
+  closeDialogButton.addEventListener('click', function() {
 	document.querySelector('.main_blured').className = 'main'; 
 	document.querySelector('[up_level_msg]').style.display = 'none';
 	document.querySelector('[up_power_msg]').style.display = 'none';
@@ -70,20 +117,35 @@ var showDialogButtons = document.querySelectorAll('[close_msg]');
 
 
 
-document.querySelector('#confirm_up_lvl').addEventListener('click', () => {
-	document.querySelector('.main_blured').className = 'main'; 
-	document.querySelector('[up_level_msg]').style.display = 'none';
+document.querySelector('[confirm_up_lvl]').addEventListener('click', () => {
+	new DataLoader({'cmd':'do_up_level', 'id':'920624208', 'aid':aterra_id}, (data) => {
+		if (Object.keys(data).length != 0) {
+			if (data['result'] == 'ok') window.location.reload();
+		}
+	}, false);
+});
+
+document.querySelector('[confirm_up_pwr]').addEventListener('click', () => {
+	new DataLoader({'cmd':'do_up_power', 'id':'920624208', 'aid':aterra_id}, (data) => {
+		if (Object.keys(data).length != 0) {
+			if (data['result'] == 'ok') window.location.reload();
+		}
+	}, false);
 	
 });
 
-document.querySelector('#confirm_up_pwr').addEventListener('click', () => {
-	document.querySelector('.main_blured').className = 'main'; 
-	document.querySelector('[up_power_msg]').style.display = 'none';
+document.querySelector('[do_claim]').addEventListener('click', () => {
+	if (document.querySelector('[do_claim]').style.display == 'flex') {
+		new DataLoader({'cmd': 'do_claim_aterra', 'id':'920624208', 'aid':aterra_id}, (data) => {
+			if (Object.keys(data).length != 0) window.location.reload();
+		}, false);
+	}
 	
 });
   
 });
 </script>
+
 </head>
 
 <body>
@@ -178,14 +240,15 @@ document.querySelector('#confirm_up_pwr').addEventListener('click', () => {
 	<div class=message_content>
 		<div class=block_info_title>NEXT TERRITORY LEVEL</div>
 		<div class=message_content_p>
-			<p><b>Resources per claim:</b> <numeric>~162</numeric></p>
-			<p><b>Minimum time to claim:</b> <numeric>1</numeric> h <numeric> 03</numeric> m</p>
-			<p><b>Maximum time to claim:</b> <numeric>2</numeric> h <numeric> 27</numeric> m</p>
-			<p><b>Upgrade cost:</b> <numeric>128</numeric> <token>$ATERRA</token></p>
+			<p><b>Resources per claim:</b> <numeric next_lvl_claim>~162</numeric></p>
+			<p><b>Minimum time to claim:</b> <numeric min_h>1</numeric> h <numeric min_m> 03</numeric> m</p>
+			<p><b>Maximum time to claim:</b> <numeric max_h>2</numeric> h <numeric max_m> 27</numeric> m</p>
+			<p><b>Upgrade cost:</b> <numeric up_level_cost>128</numeric> <token>$ATERRA</token></p>
 		</div>
 		
 		<div class=footer>
-			<a href=# class=row id=confirm_up_lvl>Confirm Upgrade</a>
+		
+			<a href=# class=row confirm_up_lvl>Confirm Upgrade</a>
 			<a href=# class=row close_msg>Cancel</a>
 		</div>
 	</div>
@@ -195,12 +258,12 @@ document.querySelector('#confirm_up_pwr').addEventListener('click', () => {
 	<div class=message_content>
 		<div class=block_info_title>INCREASE POWER</div>
 		<div class=message_content_p>
-			<p><b>Power:</b> <numeric>+5%</numeric></p>
-			<p><b>Upgrade cost:</b> <numeric>32</numeric> <token>$ATERRA</token></p>
+			<p><b>Power:</b> +<numeric next_power_delta>+5%</numeric></p>
+			<p><b>Upgrade cost:</b> <numeric up_power_cost>32</numeric> <token>$ATERRA</token></p>
 		</div>
 		
 		<div class=footer>
-			<a href=# class=row id=confirm_up_pwr>Confirm Upgrade</a>
+			<a href=# class=row confirm_up_pwr>Confirm Upgrade</a>
 			<a href=# class=row close_msg>Cancel</a>
 		</div>
 	</div>
@@ -209,58 +272,58 @@ document.querySelector('#confirm_up_pwr').addEventListener('click', () => {
 <div class=main>
 	<div class=grtop></div>
 	<div class=grbot></div>
-	<img class=back src='imgs\territories\20.jpg'>
+	<img class=back src=''>
 	
 	
-	<div class=title>Absurd Territory <numeric>#1</numeric></div>	
+	<div class=title>Absurd Territory <numeric aid>#1</numeric></div>	
 	
 
 	
-	<div class=block_territory_info>
-		<div class=grid>
-			<div class=row id=nodecor><p><b>Territory level: </b> <numeric>6</numeric></p></div>
-			<div class=row id=nodecor><p><b>Your power: </b> <numeric>72%</numeric></p></div>
-		</div>
-		<div class=grid>
-			<div class=row id=nodecor><p><b>Buildings:</b> <numeric>1</numeric></p></div>
-			<div class=row id=nodecor><p><b>NFTs:</b> <numeric>1</numeric></p></div>				
-		</div>				
-	</div>	
+
 	<div class=content>
 
 		<div class=profile>
-
+		
+	<div class=block_info style="gap: 0px;">
+		<div class=grid_tbl>
+			<div class=row id=nodecor><p><b>Territory level: </b> <numeric level>6</numeric></p></div>
+			<div class=row id=nodecor><p><b>NFTs:</b> <numeric nfts_count>1</numeric></p></div>	
+			
+		</div>
+		<div class=grid_tbl>
+			<div class=row id=nodecor><p><b>Your power: </b> <numeric power>72%</numeric></p></div>
+			<div class=row id=nodecor><p><b>Buildings:</b> <numeric buildings_count>1</numeric></p></div>		
+		</div>			
+	</div>			
 			
 			<div class=block_info style="gap: 0px;">
 				<div class=block_info_title>Resourses</div>
 				<div class=grid_tbl>
-					<div class=grid_aterra_res>
-						<p><b>ЗАПЯТЫЕ ДУРЕВА</b></p>
-						<p style='font-size:25'><b><numeric>?</numeric></b></p>
-					</div>
-					
-					<div class=grid_aterra_res>
-						<p><b>ПРОЗРАЧНЫЕ КОРОВЫ</b></p>
-						<p style='font-size:25'><b><numeric>?</numeric></b></p>
-					</div>					 
+					<p><b class=resource_caption res0></b></p>
+					<p><b><numeric class=anim_bw res0_claimed>?</numeric></b></p>
+				</div>		
+				<div class=grid_tbl>
+					<p><b class=resource_caption res1></b></p>
+					<p><b><numeric class=anim_bw res1_claimed>?</numeric></b></p>	 
 				</div>
 				
 				<div class=grid_tbl>
-					<div class=grid_aterra_res>
-						<p><b>СВИНЦОВЫЕ ШТОРЫ</b></p>
-						<p style='font-size:25'><b><numeric>?</numeric></b></p>
-					</div>
-					
-					<div class=grid_aterra_res style="flex-direction: column;">
-						<p align=center><b>Time to claim:</b>
-						<numeric id=pr1 style='font-size:16'>3</numeric></p>
-					</div>					 
+					<p><b class=resource_caption res2></b></p>
+					<p><b><numeric class=anim_bw res2_claimed>?</numeric></b></p>
+				</div>		
+				<div class=grid_tbl>
+					<p align=center><b>Time to claim:</b></p>
+					<numeric id=pr1 style='font-size:16'>3</numeric>
+					<a href='#' class="row do_claim" do_claim style="display:none">Claim!</a>
+				</div>	
+				<div class=progress style="height:7px;margin-top: 10px;" id=bar>
+				<div class=sub_progress style="width:0" id=spr></div>
 				</div>
 
 				
 			</div>	
 
-			<div class=block_info style="gap: 0px;">
+			<div class=block_info style="gap: 0px; display:none">
 				<div class=block_info_title>Costs</div>
 				<div class=grid_tbl>
 					<p><b>UP LEVEL:</b></p>
@@ -279,7 +342,7 @@ document.querySelector('#confirm_up_pwr').addEventListener('click', () => {
 				</div>				
 			</div>	
 
-			<div class=block_info>
+			<div class=block_info style="; display:none">
 				<div class=block_info_title>Users on territory</div>
 				<div class=grid>
 					<a class="row userlink">@Vasily_tvoi_sosed</a>
