@@ -6,6 +6,7 @@
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 
 <link href="styles.css" rel="stylesheet" type="text/css">
+<link href="burnig_circle.css" rel="stylesheet" type="text/css">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="init_tg.js"></script>
 <script src="swipe.js"></script>
@@ -66,6 +67,16 @@ var showDialogButtons = document.querySelectorAll('[close_msg]');
 </head>
 
 <body>
+
+<div class="circle"></div>
+<svg>
+  <filter id="wavy">
+    <feTurbulence x="0" y="0" baseFrequency="0.009" numOctaves="5" speed="2">
+      <animate attributeName="baseFrequency" dur="60s" values="0.02; 0.005; 0.02" repeatCount="indefinite">
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" scale="30"></feTurbulence>
+  </filter>
+</svg>
 
 <div class=message style='display:none' users_rate_msg>
 	<div class=message_content>
