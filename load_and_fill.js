@@ -27,7 +27,7 @@ class DataLoader {
 
 	}
 	
-	this.xmlhttp.open('POST', 'https://194.58.104.72:4443');
+	this.xmlhttp.open('POST', 'https://coliseum-game.ru:4443');
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	this.xmlhttp.send(JSON.stringify(this._request_dictionary));	
   }
