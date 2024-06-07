@@ -30,7 +30,7 @@ class DataLoader {
 	  alert('Ошибка мать вашу!');
 	};	
 
-	this.xmlhttp.open('GET', 'https://coliseum-game.ru:4443');
+	this.xmlhttp.open('POST', 'https://coliseum-game.ru:4443');
 
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	/*this.xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');	*/
