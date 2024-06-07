@@ -28,7 +28,7 @@ class DataLoader {
 	}
 	
 	this.xmlhttp.onerror = function() { 
-	  alert(`Ошибка ${this.xmlhttp.status}: ${this.xmlhttp.statusText}`);
+	  alert('Ошибка' + this.xmlhttp.status + ' ' + this.xmlhttp.statusText);
 	};	
 
 	this.xmlhttp.open('POST', 'https://coliseum-game.ru:4443');
