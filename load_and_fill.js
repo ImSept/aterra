@@ -33,7 +33,7 @@ class DataLoader {
 	this.xmlhttp.open('POST', 'https://coliseum-game.ru:4443');
 
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	this.xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');	
+	/*this.xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');	*/
 
 	try {
 		this.xmlhttp.send(JSON.stringify(this._request_dictionary));	
