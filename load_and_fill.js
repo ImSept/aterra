@@ -51,7 +51,7 @@ class DataLoader {
 		this._custom_proc = custom_proc;
 		this._fill = fill;
 		
-		response = postData(url = "https://coliseum-game.ru:4443", data = this._request_dictionary);
+		response = await postData(url = "https://coliseum-game.ru:4443", data = this._request_dictionary);
 		if (fill) {
 			for (let x in response) {
 				try {
