@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			document.querySelector('#spr').style.width = data['timer'][4]*100 + '%';
 			if (data['timer'][4] > 0.8) {
 				document.querySelector('#bar').className = document.querySelector('#bar').className + ' anim_border';
+				document.querySelector('[do_claim]').className = 'row do_claim';
 				}
 			
 		});
@@ -92,6 +93,7 @@ document.querySelector('#up_power').addEventListener('click', () => {
 	
 });
 
+/*
 document.querySelector('#buildings').addEventListener('click', () => {
 	document.querySelector('.main').className = 'main_blured'; 
 	document.querySelector('[buildings]').style.display = 'flex';
@@ -102,7 +104,7 @@ document.querySelector('#nfts').addEventListener('click', () => {
 	document.querySelector('.main').className = 'main_blured'; 
 	document.querySelector('[nfts]').style.display = 'flex';
 	
-});
+});*/
 
 var showDialogButtons = document.querySelectorAll('[close_msg]');
 
@@ -284,44 +286,19 @@ document.querySelector('[do_claim]').addEventListener('click', () => {
 
 		<div class=profile>
 		
-	<div class=block_info style="gap: 0px;">
-		<div class=grid_tbl>
-			<div class=row id=nodecor><p><b>Territory level: </b> <numeric level>6</numeric></p></div>
-			<div class=row id=nodecor><p><b>NFTs:</b> <numeric nfts_count>1</numeric></p></div>	
-			
-		</div>
-		<div class=grid_tbl>
-			<div class=row id=nodecor><p><b>Your power: </b> <numeric power>72%</numeric></p></div>
-			<div class=row id=nodecor><p><b>Buildings:</b> <numeric buildings_count>1</numeric></p></div>		
-		</div>			
-	</div>			
-			
 			<div class=block_info style="gap: 0px;">
-				<div class=block_info_title>Resourses</div>
 				<div class=grid_tbl>
-					<p><b class=resource_caption res0></b></p>
-					<p><b><numeric class=anim_bw res0_claimed>?</numeric></b></p>
-				</div>		
-				<div class=grid_tbl>
-					<p><b class=resource_caption res1></b></p>
-					<p><b><numeric class=anim_bw res1_claimed>?</numeric></b></p>	 
+					<div class=row id=nodecor><p><b>Territory level: </b> <numeric level>6</numeric></p></div>
+					<div class=row id=nodecor><p><b>NFT:</b> <numeric nfts_count>1</numeric></p></div>	
+					
 				</div>
-				
 				<div class=grid_tbl>
-					<p><b class=resource_caption res2></b></p>
-					<p><b><numeric class=anim_bw res2_claimed>?</numeric></b></p>
-				</div>		
-				<div class=grid_tbl>
-					<p align=center><b>Time to claim:</b></p>
-					<numeric id=pr1 style='font-size:16'>3</numeric>
-					<a href='#' class="row do_claim" do_claim style="display:none">Claim!</a>
-				</div>	
-				<div class=progress style="height:7px;margin-top: 10px;" id=bar>
-				<div class=sub_progress style="width:0" id=spr></div>
-				</div>
+					<div class=row id=nodecor><p><b>Your power: </b> <numeric power>72%</numeric></p></div>
+					<div class=row id=nodecor><p><b>Buildings:</b> <numeric buildings_count>1</numeric></p></div>		
+				</div>			
+			</div>			
+			
 
-				
-			</div>	
 
 			<div class=block_info style="gap: 0px; display:none">
 				<div class=block_info_title>Costs</div>
@@ -358,17 +335,45 @@ document.querySelector('[do_claim]').addEventListener('click', () => {
 	
 	</div>
 	<div>
+		<div class=profile>
+			<div class=block_info style="gap: 0px;">
+				<div class=block_info_title>Resourses</div>
+				<div class=grid_tbl>
+					<p><b class=resource_caption res0></b></p>
+					<p><b><numeric class=anim_bw res0_claimed>?</numeric></b></p>
+				</div>		
+				<div class=grid_tbl>
+					<p><b class=resource_caption res1></b></p>
+					<p><b><numeric class=anim_bw res1_claimed>?</numeric></b></p>	 
+				</div>
+				
+				<div class=grid_tbl>
+					<p><b class=resource_caption res2></b></p>
+					<p><b><numeric class=anim_bw res2_claimed>?</numeric></b></p>
+				</div>		
+				<div class=grid_tbl>
+					<p align=center><b>Time to claim:</b></p>
+					<numeric id=pr1 style='font-size:16'>3</numeric>
+					<a href='#' class="row" do_claim style="display:none">Claim!</a>
+				</div>	
+				<div class=progress style="height:7px;margin-top: 10px;" id=bar>
+				<div class=sub_progress style="width:0" id=spr></div>
+				</div>
+
+				
+			</div>	
+		</div>		
 		<div class=footer id=noborder>
 			<a href='#' class=row id=up_level>Up Level</a>
 			<a href='#' class=row id=up_power>Up Power</a>
-			<a href='#' class=row id=buildings>Build</a>
-			<a href='#' class=row id=nfts>NFTs</a>
+			<a href='#' class=row id=no_active_button iid=buildings>Build</a>
+			<a href='#' class=row id=no_active_button iid=nfts>NFT</a>
 		</div>		
 		<div class=footer>
 			<a href='profile.html' class=row>Profile</a>
 			<a href='index.html' class=row id=down>Absurd territories</a>
 			<a href='resurces.html' class=row>Received resources</a>
-			<a href='#' class=row>Quests</a>
+			<a href='#' class=row id=no_active_button>Quests</a>
 		</div>
 	</div>
 </div>

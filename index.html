@@ -6,6 +6,9 @@
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 
 <link href="styles.css" rel="stylesheet" type="text/css">
+<link href="burnig_circle.css" rel="stylesheet" type="text/css">
+
+
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="aterra_timer.js"></script>
 <script src="init_tg.js"></script>
@@ -14,11 +17,12 @@
 
 <script>
 
-
+/*var root_url = 'https://imsept.github.io/aterra/';*/
+var root_url = '';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-	new Swiper('https://imsept.github.io/aterra/profile.html', 'https://imsept.github.io/aterra/resurces.html');
+	new Swiper(root_url + 'profile.html', root_url + 'resurces.html');
 	
 	new DataLoader({'cmd':'new_aterra_req', 'id':'920624208'}, (data) => {
 		all_exists = true
@@ -40,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			let el = document.querySelector('#res' + x)
 			if (el != undefined) el.textContent = data[x]['caption'];	
 		}	
-	});	
+	}, false);	
 	
 	new DataLoader({'cmd':'aterrs', 'id':'920624208'}, (data) => {
 	
@@ -79,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 		}
 		//if (data['alliance_caption'] != '') document.querySelector('[alliance]').style.display = 'flex';	
-	});
+	}, false);
 
 	new IntervalTimer(10000, () => {
 		new DataLoader({'cmd':'aterrs', 'id':'920624208'}, (data) => {
@@ -90,11 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
 					}
 			}
 			
-		});
+		}, false);
 	});
 
   
-document.querySelector('#new_aterra').addEventListener('click', () => {
+document.querySelector('[new_aterra_btn]').addEventListener('click', () => {
 	document.querySelector('.main').className = 'main_blured'; 
 	document.querySelector('[new_aterra]').style.display = 'flex';
 	
@@ -109,12 +113,16 @@ var showDialogButtons = document.querySelectorAll('[close_msg]');
   }));
   
 document.querySelector('[confirm_new_aterra]').addEventListener('click', () => {
-	if (document.querySelector('[confirm_new_aterra]').id == 'no_active_button') {
-		alert('no res')
-	}
-	else {
-		document.querySelector('.main_blured').className = 'main'; 
-		document.querySelector('[new_aterra]').style.display = 'none';
+	if (document.querySelector('[confirm_new_aterra]').id != 'no_active_button') {
+
+		new DataLoader({'cmd': 'do_new_aterra', 'id':'920624208'}, (data) => {
+			if (Object.keys(data).length != 0) window.location.href = root_url + 'aterra.html?aterra_id=' + data['result']
+			else {
+				document.querySelector('.main_blured').className = 'main'; 
+				document.querySelector('[new_aterra]').style.display = 'none';			
+			}
+		}, false);
+
 	}
 	
 }); 
@@ -147,10 +155,9 @@ document.querySelector('[close_claim_result_msg]').addEventListener('click', () 
   
 });
 </script>
-
 </head>
 
-<body bdy>
+<body>
 
 <div class=message style='display:none' claim_result>
 	<div class=message_content>
@@ -208,16 +215,15 @@ document.querySelector('[close_claim_result_msg]').addEventListener('click', () 
 	<div>
 		<div class=footer id=noborder>
 			<a href='#' class=row do_all_claim>💥 Claim all</a>
-			<a href='#' class=row id=new_aterra>🧩 New territory</a>
+			<a href='#' class=row new_aterra_btn>🧩 New territory</a>
 		</div>		
 		<div class=footer>
 			<a href='profile.html' class=row>Profile</a>
 			<a href='index.html' class=row id=down>Absurd territories</a>
 			<a href='resurces.html' class=row>Received resources</a>
-			<a href='#' class=row>Quests</a>
+			<a href='#' class=row id=no_active_button>Quests</a>
 		</div>
 	</div>
 </div>
-
 </body>
 </html>

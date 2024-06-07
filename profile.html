@@ -68,16 +68,6 @@ var showDialogButtons = document.querySelectorAll('[close_msg]');
 
 <body>
 
-<div class="circle"></div>
-<svg>
-  <filter id="wavy">
-    <feTurbulence x="0" y="0" baseFrequency="0.009" numOctaves="5" speed="2">
-      <animate attributeName="baseFrequency" dur="60s" values="0.02; 0.005; 0.02" repeatCount="indefinite">
-    </feTurbulence>
-    <feDisplacementMap in="SourceGraphic" scale="30"></feTurbulence>
-  </filter>
-</svg>
-
 <div class=message style='display:none' users_rate_msg>
 	<div class=message_content>
 		<div class=block_info_title>Leader board</div>
@@ -164,15 +154,15 @@ var showDialogButtons = document.querySelectorAll('[close_msg]');
 	</div>
 	<div>
 		<div class=footer id=noborder>
-			<a href='#' class=row>Invite friend</a>
+			<a href='#' class=row id=no_active_button>Invite friend</a>
 			<a href='#' class=row leader_board>Leader board</a>
-			<a href='#' class=row>NFT collections</a>
+			<a href='#' class=row id=no_active_button>NFT collections</a>
 		</div>		
 		<div class=footer>
 			<a href='profile.html' class=row id=down>Profile</a>
 			<a href='index.html' class=row>Absurd territories</a>
 			<a href='resurces.html' class=row>Received resources</a>
-			<a href='#' class=row>Quests</a>
+			<a href='#' class=row id=no_active_button>Quests</a>
 		</div>
 	</div>
 </div>

@@ -50,3 +50,30 @@
       }
 
     }
+	
+	class IteratorTimer {
+      constructor(interval, func, args, afterall) {
+        this._interval = interval;
+        this._func = func;
+		this._afterall = afterall;
+		this._args = args;
+		this._index = 0;
+        this._timerId = null;
+        this._start();
+      }
+	  _do() {
+		if (this._index == this._args.length) {
+			clearInterval(this._timerId);
+			this._afterall();
+		}  
+		else {
+			this._func(this._args[this._index]);
+			this._index += 1;
+		}
+		  
+	  }
+      _start() {
+		this._do();
+        this._timerId = setInterval(this._do.bind(this), this._interval);
+      }		
+	}
