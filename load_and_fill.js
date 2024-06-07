@@ -30,19 +30,14 @@ class DataLoader {
 	  alert('Ошибка мать вашу!');
 	};	
 
-	/*this.xmlhttp.open('GET', 'https://coliseum-game.ru:4443');*/
-	var str = [];
-	for (let k in this._request_dictionary) {
-		str.push(k + '=' + this._request_dictionary[k])
-	}
-	this.xmlhttp.open('GET', 'https://coliseum-game.ru:4443?' + str.join('&'));
+
+	this.xmlhttp.open('POST', 'https://coliseum-game.ru:4443?');
 
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	/*this.xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');	*/
 
 	try {
-		/*this.xmlhttp.send(JSON.stringify(this._request_dictionary));	*/
-		this.xmlhttp.send();	
+		this.xmlhttp.send(JSON.stringify(this._request_dictionary));	
 	}
 	catch (e) {alert(e)}
   }
