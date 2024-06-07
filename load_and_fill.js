@@ -18,7 +18,7 @@ class DataLoader {
 						  
 						//let dl = document.querySelector('[' + x + ']');
 						//if (dl != null) 
-					} catch (e) {}
+					} catch (e) {alert(e)}
 				}	 
 			}
 			if (custom_proc != undefined) custom_proc(this.server_data);
@@ -36,6 +36,9 @@ class DataLoader {
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	this.xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');	
 
-	this.xmlhttp.send(JSON.stringify(this._request_dictionary));	
+	try {
+		this.xmlhttp.send(JSON.stringify(this._request_dictionary));	
+	}
+	catch (e) {alert(e)}
   }
 }
