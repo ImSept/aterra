@@ -44,7 +44,7 @@ function RunFormater(){
 
 document.addEventListener('DOMContentLoaded', () => {
 	try {
-		user_id = tg.initDataUnsafe.user.id;
+		user_id = window.Telegram.initDataUnsafe.user.id;
 	}
 	catch (e) {
 		alert(e);
