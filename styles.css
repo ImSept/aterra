@@ -13,7 +13,7 @@ body {
 	width: 100%;
 	/*var(--tg-viewport-stable-height);*/
 	color: white;
-	    background-color: #000;
+	background-color: #000;
 	/*background-color: #0b1425;*/
 	font-family: WorkSans;
 	/*font-family: vivl-rail;	*/
@@ -51,6 +51,7 @@ div {
 	text-transform: uppercase;
 	/*color: rgb(200, 200, 200);*/
 	color: rgb(203 200 177);
+	max-width: 500px;
 
 	/*font-family: vivl-rail;	
 	font-family: WorkSans;	*/
@@ -74,6 +75,7 @@ p {
 	/*color: black;*/
 	color: rgb(203 200 177);
 	text-align:center;
+	font-size:22px;
 	font-weight: bold;
     /*text-shadow: 0 -0.05em 0.2em #FFF, 0.01em -0.02em 0.15em #FE0, 0.01em -0.05em 0.15em #FC0, 0.02em -0.15em 0.2em #F90, 0.04em -0.20em 0.3em #F70, 0.05em -0.25em 0.4em #F70, 0.06em -0.2em 0.9em #F50, 0.1em -0.1em 1.0em #F40;
 	*/
