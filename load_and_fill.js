@@ -1,14 +1,29 @@
 	// загрузка данных
 	
-document.write('<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>');
 
 
+class DataLoader {
+  constructor(request_dictionary, custom_proc = undefined, Fill=true) {
+	$.post( "https://coliseum-game.ru:4443", request_dictionary, function( data ) {
+		if (Fill) {
+			for (let x in data) {
+				try {
+					var dls = document.querySelectorAll('[' + x + ']');
+
+					[...dls].forEach(dl => dl.textContent = data[x]);
+
+				} catch (e) {}
+			}	 
+		}
+		if (custom_proc != undefined) custom_proc(data);
+	}, "json");	
+  }
+}
  	
 
-$.post( "https://coliseum-game.ru:4443", { cmd: "resources" }, function( data ) {
-  alert(JSON.stringify(data));
-}, "json");
 
+
+/*
 class DataLoader {
   constructor(request_dictionary, custom_proc = undefined, Fill=true) {
 	this._request_dictionary = request_dictionary;
@@ -39,17 +54,15 @@ class DataLoader {
 	};	
 
 
-	/*this.xmlhttp.open('POST', '');*/
 	this.xmlhttp.open('POST', 'https://coliseum-game.ru:4443');
 	
 
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	/*this.xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');	*/
 
 	try {
 		this.xmlhttp.send(JSON.stringify(this._request_dictionary));	
 	}
 	catch (e) {alert(e)}
   }
-}
+}*/
 
