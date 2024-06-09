@@ -28,13 +28,7 @@
 /*var root_url = 'https://imsept.github.io/aterra/';*/
 var root_url = '';
 var user_id = '';
-try {
-	user_id = tg.initDataUnsafe.user.id;
-}
-catch (e) {
-	alert(e);
-	user_id = '920624208';
-}
+
 function RunFormater(){
 	numerics = document.querySelectorAll('numeric');
 
@@ -49,6 +43,14 @@ function RunFormater(){
 
 
 document.addEventListener('DOMContentLoaded', () => {
+	try {
+		user_id = tg.initDataUnsafe.user.id;
+	}
+	catch (e) {
+		alert(e);
+		user_id = '920624208';
+	}
+
 	new Swiper(root_url + 'profile.html', root_url + 'resurces.html');
 	
 	new DataLoader({'cmd':'new_aterra_req', 'id':user_id}, (data) => {
@@ -118,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}, false);
 
 	new IntervalTimer(10000, () => {
-		new DataLoader({'cmd':'aterrs', 'id':'920624208'}, (data) => {
+		new DataLoader({'cmd':'aterrs', 'id':user_id}, (data) => {
 			for (let x in data) {
 				document.querySelector('#spr' + x).style.width = data[x]['timer'][4]*100 + '%';
 				if (data[x]['timer'][4] > 0.8) {
@@ -148,7 +150,7 @@ var showDialogButtons = document.querySelectorAll('[close_msg]');
 document.querySelector('[confirm_new_aterra]').addEventListener('click', () => {
 	if (document.querySelector('[confirm_new_aterra]').id != 'no_active_button') {
 
-		new DataLoader({'cmd': 'do_new_aterra', 'id':'920624208'}, (data) => {
+		new DataLoader({'cmd': 'do_new_aterra', 'id':user_id}, (data) => {
 			if (Object.keys(data).length != 0) window.location.href = root_url + 'aterra.html?aterra_id=' + data['result']
 			else {
 				document.querySelector('.main_blured').className = 'main'; 
@@ -161,7 +163,7 @@ document.querySelector('[confirm_new_aterra]').addEventListener('click', () => {
 }); 
 
 document.querySelector('[do_all_claim]').addEventListener('click', () => {
-	new DataLoader({'cmd': 'do_claim_all', 'id':'920624208'}, (data) => {
+	new DataLoader({'cmd': 'do_claim_all', 'id':user_id}, (data) => {
 		if (Object.keys(data).length != 0) {
 			content_block = '';
 			for (let x in data) {
