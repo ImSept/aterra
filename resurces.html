@@ -15,7 +15,14 @@
 <script src="load_and_fill.js"></script>
 
 <script>
-var user_id = '920624208';
+var user_id = '';
+try {
+	user_id = tg.initDataUnsafe.user.id;
+}
+catch (e) {
+	alert('Попытка доступа вне телеграм! Пщель вон!');
+	user_id = '920624208';
+}
 
 
 
@@ -38,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			content_block += '<div class=resource_cont>';
 			
 			content_block += '<div class=resource_caption>' + data[x][0] + '</div>';
-			content_block += '<div class=resource_value><numeric>' + data[x][1] + '</<numeric></div>';
+			content_block += '<div class=resource_value><numeric>' + parseFloat(data[x][1]).toLocaleString().replace(',', '.')  + '</<numeric></div>';
 			content_block += '</div>';
 			
 			content_block += '<a href = "#" class="pr_btn' + (data[x][2] == '1' ? ' down' : '') + '" id=' + x + ' no_burn_btn>📛</a>';
