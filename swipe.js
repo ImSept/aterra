@@ -10,8 +10,8 @@ class Swiper {
 	})
 
 	document.addEventListener('touchend', e => {
-	  this.touchendX = e.changedTouches[0].screenX
-	  this.checkDirection()
+	  this.touchendX = e.changedTouches[0].screenX;
+	  /*this.checkDirection()*/
 	})
   }
   
