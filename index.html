@@ -44,7 +44,10 @@ function RunFormater(){
 
 document.addEventListener('DOMContentLoaded', () => {
 	try {
-		user_id = window.Telegram.initDataUnsafe.user.id;
+		var WebApp = window.Telegram.WebApp;
+
+		WebApp.showAlert(`Добро пожаловать, @${WebApp.WebAppUser.username}.`);	
+		user_id = WebApp.WebAppUser.id;
 	}
 	catch (e) {
 		alert(e);
