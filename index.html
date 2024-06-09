@@ -17,7 +17,6 @@
 <link href="styles.css" rel="stylesheet" type="text/css">
 
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="aterra_timer.js"></script>
 <script src="init_tg.js"></script>
 <script src="swipe.js"></script>
@@ -27,12 +26,24 @@
 
 /*var root_url = 'https://imsept.github.io/aterra/';*/
 var root_url = '';
+var user_id = '920624208'
+function RunFormater(){
+	numerics = document.querySelectorAll('numeric');
+
+	[...numerics].forEach(numeric => {
+	    var num = parseFloat(numeric.innerHTML)
+		if (num.toString() == numeric.innerHTML) {
+			numeric.innerHTML = parseFloat(numeric.innerHTML).toLocaleString().replace(',', '.');
+		}	
+	});
+
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
 	new Swiper(root_url + 'profile.html', root_url + 'resurces.html');
 	
-	new DataLoader({'cmd':'new_aterra_req', 'id':'920624208'}, (data) => {
+	new DataLoader({'cmd':'new_aterra_req', 'id':user_id}, (data) => {
 		all_exists = true
 		for (let x in data['new_aterra_need_res']) {
 			
@@ -44,11 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
 				document.querySelector('[res_exists' + x + ']').style.color = 'red';
 				all_exists *= false;
 				}
-		}
+		};
 		if (all_exists != true) {
 			document.querySelector('[confirm_new_aterra]').id = 'no_active_button';
 		
-		}
+		};
+		RunFormater();
 	});
 	/*new DataLoader({'cmd': 'resources'}, (data) => {
 		for (let x in data) {
@@ -57,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}	
 	}, false);	*/
 	
-	new DataLoader({'cmd':'aterrs', 'id':'920624208'}, (data) => {
+	new DataLoader({'cmd':'aterrs', 'id':user_id}, (data) => {
 	
 		var content_block = '';
 		for (let x in data) {
@@ -92,7 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				});			
 			
 	
-		}
+		};
+		RunFormater();
 		//if (data['alliance_caption'] != '') document.querySelector('[alliance]').style.display = 'flex';	
 	}, false);
 
@@ -103,7 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (data[x]['timer'][4] > 0.8) {
 					document.querySelector('#bar' + x).className += ' anim_border';
 					}
-			}
+			};
+			
 			
 		}, false);
 	});
