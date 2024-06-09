@@ -58,10 +58,11 @@ class DataLoader {
 	
 
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	this.xmlhttp.setRequestHeader("Permissions-Policy", "interest-cohort=()");
+	
 	
 
 	if (false) {
+		this.xmlhttp.setRequestHeader("Permissions-Policy", "interest-cohort=()");
 		this.xmlhttp.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
 		this.xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 	}
