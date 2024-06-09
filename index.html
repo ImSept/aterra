@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 
@@ -9,10 +9,12 @@
 <meta http-equiv="Access-Control-Allow-Headers" content="Origin, Content-Type, X-Auth-Token">
 
 
+
+
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name="viewport" content="width=420, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
 
 <link href="styles.css" rel="stylesheet" type="text/css">
-<link href="burnig_circle.css" rel="stylesheet" type="text/css">
 
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -33,7 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	new DataLoader({'cmd':'new_aterra_req', 'id':'920624208'}, (data) => {
 		all_exists = true
 		for (let x in data['new_aterra_need_res']) {
-			document.querySelector('[res' + x + ']').id = 'res' + data['new_aterra_need_res'][x];
+			
+			/*document.querySelector('[res' + x + ']').id = 'res' + data['new_aterra_need_res'][x];*/
+			document.querySelector('[res' + x + ']').textContent = data['new_aterra_res_captions'][x];
+			
 			document.querySelector('[res_exists' + x + ']').textContent = data['res_exists'][x];
 			if (parseFloat(data['res_exists'][x]) < parseFloat(data['new_aterra_need'])) {
 				document.querySelector('[res_exists' + x + ']').style.color = 'red';
@@ -45,12 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		}
 	});
-	new DataLoader({'cmd': 'resources'}, (data) => {
+	/*new DataLoader({'cmd': 'resources'}, (data) => {
 		for (let x in data) {
 			let el = document.querySelector('#res' + x)
 			if (el != undefined) el.textContent = data[x]['caption'];	
 		}	
-	}, false);	
+	}, false);	*/
 	
 	new DataLoader({'cmd':'aterrs', 'id':'920624208'}, (data) => {
 	
