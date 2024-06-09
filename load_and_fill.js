@@ -59,17 +59,8 @@ class DataLoader {
 
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-this.xmlhttp.setRequestHeader("Connection", "keep-alive");
-this.xmlhttp.setRequestHeader("sec-ch-ua", "\"Microsoft Edge\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\", \"Microsoft Edge WebView2\";v=\"125\"");
-this.xmlhttp.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
-this.xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-this.xmlhttp.setRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0");
-this.xmlhttp.setRequestHeader("sec-ch-ua-platform", "\"Windows\"");
-this.xmlhttp.setRequestHeader("Sec-Fetch-Site", "cross-site");
-this.xmlhttp.setRequestHeader("Sec-Fetch-Mode", "cors");
-this.xmlhttp.setRequestHeader("Sec-Fetch-Dest", "empty");
-this.xmlhttp.setRequestHeader("Accept-Encoding", "gzip, deflate, br, zstd");
-this.xmlhttp.setRequestHeader("Accept-Language", "ru,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+	this.xmlhttp.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
+	this.xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 
 
 	try {
