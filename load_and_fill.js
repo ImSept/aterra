@@ -59,9 +59,10 @@ class DataLoader {
 
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-	this.xmlhttp.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
-	this.xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-
+	if (false) {
+		this.xmlhttp.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
+		this.xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+	}
 
 	try {
 		this.xmlhttp.send(JSON.stringify(this._request_dictionary));	
