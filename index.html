@@ -46,9 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	try {
 		var WebApp = window.Telegram.WebApp;
 		alert(WebApp.initData);
-
-		WebApp.showAlert(`Добро пожаловать, @${WebApp.WebAppUser.username}.`);	
-		user_id = WebApp.WebAppUser.id;
+		user_id = JSON.parse(new URLSearchParams(window.Telegram.WebApp.initData).get('user')).id;
 	}
 	catch (e) {
 		alert(e);
