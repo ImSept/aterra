@@ -28,7 +28,14 @@
 /*var root_url = 'https://imsept.github.io/aterra/';*/
 var root_url = '';
 var user_id = '';
-
+try {
+	user_id = JSON.parse(new URLSearchParams(window.Telegram.WebApp.initData).get('user')).id;
+}
+catch (e) {
+	alert(e);
+	user_id = '920624208';
+}
+	
 function RunFormater(){
 	numerics = document.querySelectorAll('numeric');
 
@@ -43,15 +50,7 @@ function RunFormater(){
 
 
 document.addEventListener('DOMContentLoaded', () => {
-	try {
-		var WebApp = window.Telegram.WebApp;
-		alert(WebApp.initData);
-		user_id = JSON.parse(new URLSearchParams(window.Telegram.WebApp.initData).get('user')).id;
-	}
-	catch (e) {
-		alert(e);
-		user_id = '920624208';
-	}
+
 
 	new Swiper(root_url + 'profile.html', root_url + 'resurces.html');
 	

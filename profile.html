@@ -16,10 +16,10 @@
 <script>
 var user_id = '';
 try {
-	user_id = tg.initDataUnsafe.user.id;
+	user_id = JSON.parse(new URLSearchParams(window.Telegram.WebApp.initData).get('user')).id;
 }
 catch (e) {
-	alert('Попытка доступа вне телеграм! Пщель вон!');
+	alert(e);
 	user_id = '920624208';
 }
 
