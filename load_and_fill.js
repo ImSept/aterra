@@ -1,5 +1,13 @@
 	// загрузка данных
 	
+document.write('<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>');
+
+
+ 	
+
+$.post( "https://coliseum-game.ru:4443", { cmd: "resources" }, function( data ) {
+  alert(JSON.stringify(data));
+}, "json");
 
 class DataLoader {
   constructor(request_dictionary, custom_proc = undefined, Fill=true) {
@@ -31,7 +39,9 @@ class DataLoader {
 	};	
 
 
-	this.xmlhttp.open('POST', 'https://coliseum-game.ru:4443?');
+	/*this.xmlhttp.open('POST', '');*/
+	this.xmlhttp.open('POST', 'https://coliseum-game.ru:4443');
+	
 
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	/*this.xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');	*/
