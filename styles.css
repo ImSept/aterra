@@ -16,6 +16,7 @@ body {
 	background-color: #000;
 	/*background-color: #0b1425;*/
 	font-family: WorkSans;
+	letter-spacing: 1px;
 	/*font-family: vivl-rail;	*/
 	/*background: radial-gradient(at center top, #253d6b, #0b1425);
 	background: rgb(11,20,37);
@@ -55,7 +56,7 @@ div {
 
 	/*font-family: vivl-rail;	
 	font-family: WorkSans;	*/
-	letter-spacing: 0.4px;
+	
 	/*text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;*/
 	text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
 }
@@ -116,7 +117,16 @@ p {
 
 
 .resource_caption {
-	text-transform: uppercase;
+	text-transform: capitalize;
+	font-weight: bold;
+}
+
+.resource_value {
+	text-transform: none;
+}
+
+.resource_all_claimed {
+	text-transform: none;
 }
 
 .grtop {
@@ -549,7 +559,7 @@ p {
 
 /* Received resurces */
 
-.resurce_block {
+.resource_block {
     display: flex;
     flex-direction: row;
     justify-content: space-between;	
@@ -563,11 +573,11 @@ p {
 }
 
 
-.resurce_block:last-child {
+.resource_block:last-child {
 	border: 0;
 }	
 
-.resurce_cont {
+.resource_cont {
     margin: 10px;
 	margin-left:20px;
 	width:200px;
@@ -584,17 +594,7 @@ p {
 	/*font-family: WorkSans;*/	
 }
 
-.resurce_caption {
-	font-weight: bold;
-}
 
-.resurce_value {
-	text-transform: none;
-}
-
-.resurce_all_claimed {
-	text-transform: none;
-}
 
 
 /* ~Received resurces */

@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					content_block += "<numeric style='width:100px'>" + data['list_rate'][x][1] + "</numeric>";
 					content_block += "<numeric style='width:100%;text-align:left'>" + data['list_rate'][x][0] + "</numeric>";
 					
-					content_block += "<lnk>" + (data['list_rate'][x][2] != '' ? '@'+data['list_rate'][x][2] : '') + "</lnk>";
+					content_block += "<lnk style='width:200px;text-align:right'>" + (data['list_rate'][x][2] != '' ? '@'+data['list_rate'][x][2] : '') + "</lnk>";
 					content_block += "</div>";	
 				
 				}
@@ -113,17 +113,17 @@ var showDialogButtons = document.querySelectorAll('[close_msg]');
 				</div>
 				<div class=grid_tbl>
 					<p><b>Alliance rate: <numeric>1233.5</numeric></p>
-					<p><numeric style="color:red">#1</numeric> of <numeric>20</numeric> alliances</b></p>
+					<p style='display:none'><numeric style="color:red">#1</numeric> of <numeric>20</numeric> alliances</b></p>
 				</div>
 				<div class=grid_tbl>				
 				<p><b>Member rank: <numeric personal_rang>54.4</numeric></p>
-				<p><numeric style="color:red">#1</numeric> of <numeric>20</numeric> members</b></p>			
+				<p style='display:none'><numeric style="color:red">#1</numeric> of <numeric>20</numeric> members</b></p>			
 				</div>
 			</div>
 			
 			<div class=block_info style="gap: 0px;">
 				<div class=block_info_title>Personal</div>
-				<div class=grid_tbl>
+				<div class=grid_tbl style='display:none'>
 					<p><b>Growing rate:</b></p> 
 					<p><b>More then <numeric>98%</numeric> users</b></p>
 				</div>

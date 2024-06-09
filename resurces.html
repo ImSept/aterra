@@ -29,16 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		let content_block = '';
 		for (let x in data) {
 			//let content_block;
-			content_block += '<div class=resurce_block>';
+			content_block += '<div class=resource_block>';
 			
 			//content_block += '<a class="territory_img_cont pr_btn" href="aterra.html?aterra_id=' + x + '">';
 			//content_block += '<img class=territory_img src="imgs\\territories\\' + x + '.jpg">';
 			//content_block += '</a>';
 			
-			content_block += '<div class=resurce_cont>';
+			content_block += '<div class=resource_cont>';
 			
-			content_block += '<div class=resurce_caption>' + data[x][0] + '</div>';
-			content_block += '<div class=resurce_value><numeric>' + data[x][1] + '</<numeric></div>';
+			content_block += '<div class=resource_caption>' + data[x][0] + '</div>';
+			content_block += '<div class=resource_value><numeric>' + data[x][1] + '</<numeric></div>';
 			content_block += '</div>';
 			
 			content_block += '<a href = "#" class="pr_btn' + (data[x][2] == '1' ? ' down' : '') + '" id=' + x + ' no_burn_btn>📛</a>';
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		[...dls].forEach(dl => dl.addEventListener('click', (e) => {
 			var res_id = e.currentTarget.id;
-			var msg_content = '<div class=resurce_caption>' + data[res_id][0] + '</div>';
+			var msg_content = '<div class=resource_caption>' + data[res_id][0] + '</div>';
 			var no_burn = data[res_id][2];
 			
 			if (e.currentTarget.className == 'pr_btn') {
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		[...dls].forEach(dl => dl.addEventListener('click', (e) => {
 			var res_id = e.currentTarget.id;
-			var msg_content = '<div class=resurce_caption>' + data[res_id][0] + '</div>';
+			var msg_content = '<div class=resource_caption>' + data[res_id][0] + '</div>';
 
 
 			document.querySelector("[send_form]").innerHTML = msg_content;
