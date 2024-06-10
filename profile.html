@@ -20,9 +20,10 @@ try {
 	user_id = JSON.parse(new URLSearchParams(window.Telegram.WebApp.initData).get('user')).id;
 }
 catch (e) {
-	alert(e);
+	/*alert(e);*/
 	user_id = '920624208';
 }
+user_id = '920624208';
 
 function RunFormater(){
 	numerics = document.querySelectorAll('numeric');
@@ -186,7 +187,7 @@ var showDialogButtons = document.querySelectorAll('[close_msg]');
 			<a href='profile.html' class=row id=down>Profile</a>
 			<a href='index.html' class=row>Absurd territories</a>
 			<a href='resurces.html' class=row>Received resources</a>
-			<a href='#' class=row id=no_active_button>Quests</a>
+			<a href='quest.html' class=row>Quests</a>
 		</div>
 	</div>
 </div>

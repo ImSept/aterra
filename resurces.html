@@ -22,9 +22,10 @@ try {
 	user_id = JSON.parse(new URLSearchParams(window.Telegram.WebApp.initData).get('user')).id;
 }
 catch (e) {
-	alert(e);
+	/*alert(e);*/
 	user_id = '920624208';
 }
+user_id = '920624208';
 
 
 
@@ -221,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			<a href='profile.html' class=row>Profile</a>
 			<a href='index.html' class=row>Absurd territories</a>
 			<a href='resurces.html' class=row id=down>Received resources</a>
-			<a href='#' class=row id=no_active_button>Quests</a>
+			<a href='quest.html' class=row>Quests</a>
 		</div>
 	</div>
 </div>
