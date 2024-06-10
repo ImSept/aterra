@@ -55,7 +55,7 @@ class DataLoader {
 
 
 	/*this.xmlhttp.open('POST', '');*/
-	this.xmlhttp.open('POST', 'https://coliseum-game.ru:4443');
+	this.xmlhttp.open('POST', 'https://coliseum-game.ru:443');
 	
 
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
