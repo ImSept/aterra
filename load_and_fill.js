@@ -54,10 +54,14 @@ class DataLoader {
 	};	
 
 
+	/*this.xmlhttp.open('POST', '');*/
 	this.xmlhttp.open('POST', 'https://coliseum-game.ru:4443');
 	
 
 	this.xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	this.xmlhttp.setRequestHeader("Sec-Fetch-Dest", "empty");
+	this.xmlhttp.setRequestHeader("Sec-Fetch-Mode", "cors");
+	this.xmlhttp.setRequestHeader("Sec-Fetch-Site", "cors-site");	
 	
 	
 
